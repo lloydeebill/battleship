@@ -1,14 +1,13 @@
 class Ship {
-  constructor(name, size, position, lives) {
+  constructor(name, size, position) {
     this.name = name;
     this.size = size;
     this.position = position;
-    this.lives = lives;
     this.hits = 0;
   }
 
   isSunk() {
-    if (this.hits === this.lives) {
+    if (this.hits === this.size) {
       return true;
     }
   }
