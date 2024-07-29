@@ -1,7 +1,5 @@
 import { Ship } from "./ship";
 
-const ship1 = new Ship("Destroyer", 3, "X-axis");
-
 class Gameboard {
   constructor() {
     this.boardSize = 10;
@@ -15,8 +13,34 @@ class Gameboard {
       .map(() => Array(size).fill(null));
   }
 
-  addShips() {
-    this.ships.push(ship1);
+  addShip(ship) {
+    this.ships.push(ship);
+  }
+
+  positionShip(ship, startX, startY) {
+    for (let i = 0; i < ship.size; i++) {
+      const x = ship.position === "X-axis" ? startX + i : startX;
+      const y = ship.position === "Y-axis" ? startY + i : startY;
+
+      this.grid[x][y] = ship;
+      ship.coordinates.push({ x, y });
+    }
+  }
+
+  canPlaceShip(ship, startX, startY) {
+    for (let i = 0; i < ship.size; i++) {
+      const x = ship.position === "X-axis" ? startX + i : startX;
+      const y = ship.position === "Y-axis" ? startY + i : startY;
+
+      if (
+        x >= this.boardSize ||
+        y >= this.boardSize ||
+        this.grid[x][y] !== null
+      ) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 

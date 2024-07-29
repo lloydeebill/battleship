@@ -4,6 +4,7 @@ class Ship {
     this.size = size;
     this.position = position;
     this.hits = 0;
+    this.coordinates = [];
   }
 
   isSunk() {
