@@ -1,10 +1,12 @@
 import { Ship } from "./ship";
 
 class Gameboard {
-  constructor() {
+  constructor(boardId) {
     this.boardSize = 10;
     this.grid = this.createGrid(this.boardSize);
     this.ships = [];
+    this.gridElement = document.getElementById(boardId);
+    this.renderGrid();
   }
 
   createGrid(size) {
@@ -41,6 +43,25 @@ class Gameboard {
       }
     }
     return true;
+  }
+
+  renderGrid() {
+    if (!this.gridElement) return;
+
+    this.gridElement.innerHTML = "";
+
+    for (let row = 0; row < this.boardSize; row++) {
+      for (let col = 0; col < this.boardSize; col++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+
+        if (this.grid[row][col] !== null) {
+          cell.classList.add("ship");
+        }
+
+        this.gridElement.appendChild(cell);
+      }
+    }
   }
 }
 
