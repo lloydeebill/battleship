@@ -101,5 +101,40 @@ main {
   height: 50px;
   border: 1px solid black;
   box-sizing: border-box;
+}
 
+.ship-options {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ship-chosen {
+  border: 2px solid white;
+}
+
+.carrier {
+  width: 250px;
+  height: 50px;
+  background-color: red;
+}
+
+.battleship {
+  width: 200px;
+  height: 50px;
+  background-color: orange;
+}
+
+.destroyer {
+  width: 150px;
+  height: 50px;
+  background-color: yellow;
+}
+
+.submarine {
+  width: 100px;
+  height: 50px;
+  background-color: green;
 }
