@@ -1,6 +1,6 @@
 import { Ship } from "./ship";
 class Gameboard {
-  constructor(boardId) {
+  constructor() {
     this.boardSize = 10;
   }
 }
