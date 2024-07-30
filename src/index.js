@@ -1,6 +1,6 @@
 import "./style.css";
-import { shipPlacementFrame } from "./frame/gameFrames";
+import { Gameboard } from "./battleship/gameboard";
 
-document.addEventListener("DOMContentLoaded", () => {
-  shipPlacementFrame();
-});
+const player = new Gameboard("player");
+
+player.renderBoard();
