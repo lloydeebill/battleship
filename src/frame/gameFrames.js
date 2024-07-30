@@ -1,20 +1,8 @@
 import { Gameboard } from "../battleship/gameboard";
 
-function startFrame() {
-  const main = document.querySelector("main");
-  main.innerHTML = `
-    <div>
-      <h1 class="game-title">BATTLESHIP</h1>
-      <button class="start-button">Start Game </button>
-    </div>
-  
-  `;
-}
-
 function shipPlacementFrame() {
   const main = document.querySelector("main");
-  main.innerHTML = `
-  `;
+
   main.innerHTML = `
     <div>
       <h1 class="game-title">Ship Placement</h1>
@@ -32,4 +20,4 @@ function shipPlacementFrame() {
   gameBoard.renderGrid();
 }
 
-export { startFrame, shipPlacementFrame };
+export { shipPlacementFrame };
