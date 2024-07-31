@@ -14,8 +14,17 @@ class Gameboard {
       board.appendChild(cell);
     }
 
+    const cells = document.querySelectorAll(`.${this.user}-board .cell`);
+    cells.forEach((cell, index) => {
+      cell.addEventListener("mouseover", () => {
+        console.log(`hovered-${index}`);
+      });
+    });
+
     return board;
   }
+
+  previewBoardShip() {}
 }
 
 export { Gameboard };

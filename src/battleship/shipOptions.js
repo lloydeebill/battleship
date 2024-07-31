@@ -1,9 +1,9 @@
+let shipChosen = null;
+
 function shipOptions() {
   const shipOptionsContainer = document.querySelector(".ship-options");
 
   const shipOptions = shipOptionsContainer.children;
-
-  let shipChosen = null;
 
   Array.from(shipOptions).forEach((ship) => {
     ship.addEventListener("click", () => {
@@ -18,4 +18,8 @@ function shipOptions() {
   });
 }
 
-export { shipOptions };
+function getShipChosen() {
+  return shipChosen;
+}
+
+export { shipOptions, getShipChosen };
