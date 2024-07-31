@@ -1,4 +1,5 @@
 import { Ship } from "./ship";
+import { getShipChosen, shipOptions } from "./shipOptions";
 class Gameboard {
   constructor(user) {
     this.boardSize = 10;
@@ -17,14 +18,32 @@ class Gameboard {
     const cells = document.querySelectorAll(`.${this.user}-board .cell`);
     cells.forEach((cell, index) => {
       cell.addEventListener("mouseover", () => {
-        console.log(`hovered-${index}`);
+        console.log(`Hovered over cell-${index}`);
+        this.previewBoardShip(index, getShipChosen());
       });
     });
 
     return board;
   }
 
-  previewBoardShip() {}
+  previewBoardShip(startIndex, ship) {
+    const cells = document.querySelectorAll(`.${this.user}-board .cell`);
+    cells.forEach((cell) => cell.classList.remove("ship-preview"));
+
+    if (!ship) return;
+
+    const { size, orientation } = ship;
+
+    const isHorizontal = orientation === "horizontal";
+
+    const shipIndices = [];
+
+    for (let i = startIndex; i < startIndex + size; i++) {
+      if (cells[i]) {
+        cells[i].classList.add("ship-preview");
+      }
+    }
+  }
 }
 
 export { Gameboard };

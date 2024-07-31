@@ -138,3 +138,7 @@ main {
   height: 50px;
   background-color: green;
 }
+
+.cell.ship-preview {
+  background-color: rgba(0, 128, 255, 0.5);
+}
