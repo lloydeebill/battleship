@@ -21,16 +21,24 @@ class Gameboard {
         const ship = getShipChosen();
         const startIndex = index;
 
-        this.previewBoardShip(index, ship);
+        this.previewBoardShip(startIndex, ship);
       });
     });
 
     return board;
   }
 
-  previewBoardShip(startIndex, ship) {
-    console.log(`Hovered over cell-${startIndex}`);
-    console.log("Ship chosen:", ship);
+  previewBoardShip(index, ship) {
+    console.log(index);
+    console.log(ship);
+
+    const cells = document.querySelectorAll(`.${this.user}-board .cell`);
+    cells.forEach((cell) => cell.classList.remove("ship-preview"));
+    for (let i = index; i < index + ship.size; i++) {
+      if (cells[i]) {
+        cells[i].classList.add("ship-preview");
+      }
+    }
   }
 }
 
