@@ -139,6 +139,6 @@ main {
   background-color: green;
 }
 
-.cell.ship-preview {
+.ship-preview {
   background-color: rgba(0, 128, 255, 0.5);
 }

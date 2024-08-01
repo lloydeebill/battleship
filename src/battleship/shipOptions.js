@@ -1,4 +1,5 @@
 let shipChosen = null;
+let lastSavedShip = null;
 
 function shipOptions() {
   const shipOptionsContainer = document.querySelector(".ship-options");
@@ -7,13 +8,18 @@ function shipOptions() {
 
   Array.from(shipOptions).forEach((ship) => {
     ship.addEventListener("click", () => {
-      if (shipChosen) {
-        shipChosen.classList.remove("ship-chosen");
+      if (lastSavedShip) {
+        lastSavedShip.classList.remove("ship-chosen");
       }
 
       ship.classList.add("ship-chosen");
 
-      shipChosen = ship;
+      shipChosen = {
+        name: ship.getAttribute("data-name"),
+        size: parseInt(ship.getAttribute("data-size"), 10),
+      };
+
+      lastSavedShip = ship;
     });
   });
 }

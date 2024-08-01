@@ -18,8 +18,10 @@ class Gameboard {
     const cells = document.querySelectorAll(`.${this.user}-board .cell`);
     cells.forEach((cell, index) => {
       cell.addEventListener("mouseover", () => {
-        console.log(`Hovered over cell-${index}`);
-        this.previewBoardShip(index, getShipChosen());
+        const ship = getShipChosen();
+        const startIndex = index;
+
+        this.previewBoardShip(index, ship);
       });
     });
 
@@ -27,22 +29,8 @@ class Gameboard {
   }
 
   previewBoardShip(startIndex, ship) {
-    const cells = document.querySelectorAll(`.${this.user}-board .cell`);
-    cells.forEach((cell) => cell.classList.remove("ship-preview"));
-
-    if (!ship) return;
-
-    const { size, orientation } = ship;
-
-    const isHorizontal = orientation === "horizontal";
-
-    const shipIndices = [];
-
-    for (let i = startIndex; i < startIndex + size; i++) {
-      if (cells[i]) {
-        cells[i].classList.add("ship-preview");
-      }
-    }
+    console.log(`Hovered over cell-${startIndex}`);
+    console.log("Ship chosen:", ship);
   }
 }
 
