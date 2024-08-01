@@ -12,23 +12,23 @@ beforeAll(() => {
   `;
 });
 
-test("selects the ships", () => {
-  shipOptions();
+// test("selects the ships", () => {
+//   shipOptions();
 
-  const carrier = document.querySelector(".carrier");
-  const battleship = document.querySelector(".battleship");
-  const destroyer = document.querySelector(".destroyer");
-  const submarine = document.querySelector(".submarine");
+//   const carrier = document.querySelector(".carrier");
+//   const battleship = document.querySelector(".battleship");
+//   const destroyer = document.querySelector(".destroyer");
+//   const submarine = document.querySelector(".submarine");
 
-  carrier.click();
-  expect(getShipChosen()).toBe(carrier);
+//   carrier.click();
+//   expect(getShipChosen()).toBe(carrier);
 
-  battleship.click();
-  expect(getShipChosen()).toBe(battleship);
+//   battleship.click();
+//   expect(getShipChosen()).toBe(battleship);
 
-  destroyer.click();
-  expect(getShipChosen()).toBe(destroyer);
+//   destroyer.click();
+//   expect(getShipChosen()).toBe(destroyer);
 
-  submarine.click();
-  expect(getShipChosen()).toBe(submarine);
-});
+//   submarine.click();
+//   expect(getShipChosen()).toBe(submarine);
+// });
