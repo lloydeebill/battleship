@@ -37,23 +37,53 @@ class Gameboard {
     const cells = document.querySelectorAll(`.${this.user}-board .cell`);
     cells.forEach((cell) => cell.classList.remove("ship-preview"));
 
+    const rowStart = Math.floor(centerIndex / this.boardSize) * this.boardSize;
+    const rowEnd = rowStart + this.boardSize - 1;
+
     if (ship.size % 2 !== 0) {
       const halfSize = Math.floor(ship.size / 2);
-      const startIndex = centerIndex - halfSize;
-      const endIndex = centerIndex + halfSize;
+      let startIndex = centerIndex - halfSize;
+      let endIndex = centerIndex + halfSize;
+
+      if (startIndex < rowStart) {
+        startIndex = rowStart;
+        endIndex = startIndex + ship.size - 1;
+      }
+
+      if (endIndex > rowEnd) {
+        endIndex = rowEnd;
+        startIndex = endIndex - ship.size + 1;
+      }
+
       for (let i = startIndex; i <= endIndex; i++) {
         if (cells[i]) {
           cells[i].classList.add("ship-preview");
         }
       }
     } else {
-      for (let i = centerIndex; i < centerIndex + ship.size; i++) {
+      // centerIndex === chosenIndex
+
+      let startIndex = centerIndex;
+      let endIndex = centerIndex + ship.size - 1;
+
+      if (startIndex < rowStart) {
+        startIndex = rowStart;
+        endIndex = startIndex + ship.size - 1;
+      }
+      if (endIndex > rowEnd) {
+        endIndex = rowEnd;
+        startIndex = endIndex - ship.size + 1;
+      }
+
+      for (let i = centerIndex; i <= endIndex; i++) {
         if (cells[i]) {
           cells[i].classList.add("ship-preview");
         }
       }
     }
   }
+
+  addShipToBoard() {}
 }
 
 export { Gameboard };
