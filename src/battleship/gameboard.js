@@ -22,15 +22,16 @@ class Gameboard {
 
         // centerIndex === chosenIndex
         const centerIndex = index;
+        let orientation = "horizontal";
 
-        this.previewBoardShip(centerIndex, ship);
+        this.previewBoardShip(centerIndex, ship, orientation);
       });
     });
 
     return board;
   }
 
-  previewBoardShip(centerIndex, ship) {
+  previewBoardShip(centerIndex, ship, orientation) {
     console.log(centerIndex);
     console.log(ship);
 
@@ -40,50 +41,49 @@ class Gameboard {
     const rowStart = Math.floor(centerIndex / this.boardSize) * this.boardSize;
     const rowEnd = rowStart + this.boardSize - 1;
 
-    if (ship.size % 2 !== 0) {
+    if (orientation === "horizontal") {
       const halfSize = Math.floor(ship.size / 2);
       let startIndex = centerIndex - halfSize;
       let endIndex = centerIndex + halfSize;
 
-      if (startIndex < rowStart) {
-        startIndex = rowStart;
-        endIndex = startIndex + ship.size - 1;
-      }
-
-      if (endIndex > rowEnd) {
-        endIndex = rowEnd;
-        startIndex = endIndex - ship.size + 1;
-      }
-
-      for (let i = startIndex; i <= endIndex; i++) {
-        if (cells[i]) {
-          cells[i].classList.add("ship-preview");
+      if (ship.size % 2 !== 0) {
+        if (startIndex < rowStart) {
+          startIndex = rowStart;
+          endIndex = startIndex + ship.size - 1;
         }
-      }
-    } else {
-      // centerIndex === chosenIndex
 
-      let startIndex = centerIndex;
-      let endIndex = centerIndex + ship.size - 1;
+        if (endIndex > rowEnd) {
+          endIndex = rowEnd;
+          startIndex = endIndex - ship.size + 1;
+        }
 
-      if (startIndex < rowStart) {
-        startIndex = rowStart;
-        endIndex = startIndex + ship.size - 1;
-      }
-      if (endIndex > rowEnd) {
-        endIndex = rowEnd;
-        startIndex = endIndex - ship.size + 1;
-      }
+        for (let i = startIndex; i <= endIndex; i++) {
+          if (cells[i]) {
+            cells[i].classList.add("ship-preview");
+          }
+        }
+      } else if (ship.size % 2 === 0) {
+        let startIndex = centerIndex;
+        let endIndex = centerIndex + ship.size - 1;
 
-      for (let i = centerIndex; i <= endIndex; i++) {
-        if (cells[i]) {
-          cells[i].classList.add("ship-preview");
+        if (startIndex < rowStart) {
+          startIndex = rowStart;
+          endIndex = startIndex + ship.size - 1;
+        }
+
+        if (endIndex > rowEnd) {
+          endIndex = rowEnd;
+          startIndex = endIndex - ship.size + 1;
+        }
+
+        for (let i = startIndex; i <= endIndex; i++) {
+          if (cells[i]) {
+            cells[i].classList.add("ship-preview");
+          }
         }
       }
     }
   }
-
-  addShipToBoard() {}
 }
 
 export { Gameboard };
