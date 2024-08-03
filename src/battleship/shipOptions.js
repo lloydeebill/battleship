@@ -17,6 +17,7 @@ function shipOptions() {
       shipChosen = {
         name: ship.getAttribute("data-name"),
         size: parseInt(ship.getAttribute("data-size"), 10),
+        orientation: ship.getAttribute("data-orientation"),
       };
 
       lastSavedShip = ship;

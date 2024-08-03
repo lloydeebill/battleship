@@ -4,6 +4,12 @@ class Gameboard {
   constructor(user) {
     this.boardSize = 10;
     this.user = user;
+    this.initializeBoardPositioning();
+  }
+
+  initializeBoardPositioning() {
+    this.renderBoard();
+    this.initializeOrientationHandler();
   }
 
   renderBoard() {
@@ -22,16 +28,14 @@ class Gameboard {
 
         // centerIndex === chosenIndex
         const centerIndex = index;
-        let orientation = "horizontal";
-
-        this.previewBoardShip(centerIndex, ship, orientation);
+        this.previewBoardShip(centerIndex, ship);
       });
     });
 
     return board;
   }
 
-  previewBoardShip(centerIndex, ship, orientation) {
+  previewBoardShip(centerIndex, ship) {
     console.log(centerIndex);
     console.log(ship);
 
@@ -41,48 +45,79 @@ class Gameboard {
     const rowStart = Math.floor(centerIndex / this.boardSize) * this.boardSize;
     const rowEnd = rowStart + this.boardSize - 1;
 
-    if (orientation === "horizontal") {
-      const halfSize = Math.floor(ship.size / 2);
-      let startIndex = centerIndex - halfSize;
-      let endIndex = centerIndex + halfSize;
+    if (ship.orientation === "horizontal") {
+      this.previewHorizontal(rowStart, rowEnd, ship, cells, centerIndex);
+    } else {
+      this.previewVertical();
+    }
+  }
 
-      if (ship.size % 2 !== 0) {
-        if (startIndex < rowStart) {
-          startIndex = rowStart;
-          endIndex = startIndex + ship.size - 1;
+  previewHorizontal(rowStart, rowEnd, ship, cells, centerIndex) {
+    const halfSize = Math.floor(ship.size / 2);
+    let startIndex = centerIndex - halfSize;
+    let endIndex = centerIndex + halfSize;
+
+    if (ship.size % 2 !== 0) {
+      if (startIndex < rowStart) {
+        startIndex = rowStart;
+        endIndex = startIndex + ship.size - 1;
+      }
+
+      if (endIndex > rowEnd) {
+        endIndex = rowEnd;
+        startIndex = endIndex - ship.size + 1;
+      }
+
+      for (let i = startIndex; i <= endIndex; i++) {
+        if (cells[i]) {
+          cells[i].classList.add("ship-preview");
         }
+      }
+    } else if (ship.size % 2 === 0) {
+      let startIndex = centerIndex;
+      let endIndex = centerIndex + ship.size - 1;
 
-        if (endIndex > rowEnd) {
-          endIndex = rowEnd;
-          startIndex = endIndex - ship.size + 1;
-        }
+      if (startIndex < rowStart) {
+        startIndex = rowStart;
+        endIndex = startIndex + ship.size - 1;
+      }
 
-        for (let i = startIndex; i <= endIndex; i++) {
-          if (cells[i]) {
-            cells[i].classList.add("ship-preview");
-          }
-        }
-      } else if (ship.size % 2 === 0) {
-        let startIndex = centerIndex;
-        let endIndex = centerIndex + ship.size - 1;
+      if (endIndex > rowEnd) {
+        endIndex = rowEnd;
+        startIndex = endIndex - ship.size + 1;
+      }
 
-        if (startIndex < rowStart) {
-          startIndex = rowStart;
-          endIndex = startIndex + ship.size - 1;
-        }
-
-        if (endIndex > rowEnd) {
-          endIndex = rowEnd;
-          startIndex = endIndex - ship.size + 1;
-        }
-
-        for (let i = startIndex; i <= endIndex; i++) {
-          if (cells[i]) {
-            cells[i].classList.add("ship-preview");
-          }
+      for (let i = startIndex; i <= endIndex; i++) {
+        if (cells[i]) {
+          cells[i].classList.add("ship-preview");
         }
       }
     }
+  }
+
+  previewVertical(centerIndex, ship, cells) {
+    console.log("change to vertical");
+  }
+
+  toggleChangeOrientation(ship) {
+    if (ship.orientation === "horizontal") {
+      ship.orientation = "vertical";
+    } else if (ship.orientation === "vertical") {
+      ship.orientation = "horizontal";
+    }
+  }
+
+  initializeOrientationHandler() {
+    const changeOrientBtn = document.querySelector(".change-orientation-btn");
+
+    changeOrientBtn.addEventListener("click", () => {
+      const ship = getShipChosen();
+
+      if (ship) {
+        this.toggleChangeOrientation(ship);
+        this.previewBoardShip(ship.currentIndex, ship);
+      }
+    });
   }
 }
 

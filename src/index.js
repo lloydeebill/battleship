@@ -4,5 +4,4 @@ import { shipOptions } from "./battleship/shipOptions";
 
 const player = new Gameboard("player");
 
-player.renderBoard();
 shipOptions();
