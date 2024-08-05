@@ -48,11 +48,14 @@ class Gameboard {
     if (ship.orientation === "horizontal") {
       this.previewHorizontal(rowStart, rowEnd, ship, cells, centerIndex);
     } else {
-      this.previewVertical();
+      this.previewVertical(centerIndex, ship, cells);
     }
   }
 
   previewHorizontal(rowStart, rowEnd, ship, cells, centerIndex) {
+    console.log("Center index:", centerIndex);
+    console.log("Ship size:", ship.size);
+
     const halfSize = Math.floor(ship.size / 2);
     let startIndex = centerIndex - halfSize;
     let endIndex = centerIndex + halfSize;
@@ -96,7 +99,29 @@ class Gameboard {
   }
 
   previewVertical(centerIndex, ship, cells) {
-    console.log("change to vertical");
+    const colStart = centerIndex % this.boardSize;
+    const verticalStart = centerIndex - colStart;
+    const halfSize = Math.floor(ship.size / 2);
+
+    let startIndex = verticalStart + colStart - halfSize * this.boardSize;
+    let endIndex = startIndex + (ship.size - 1) * this.boardSize;
+
+    // Ensure startIndex and endIndex are within bounds
+    if (startIndex < 0) {
+      startIndex = colStart;
+      endIndex = startIndex + (ship.size - 1) * this.boardSize;
+    }
+
+    if (endIndex >= this.boardSize * this.boardSize) {
+      endIndex = colStart + (this.boardSize - 1) * this.boardSize;
+      startIndex = endIndex - (ship.size - 1) * this.boardSize;
+    }
+
+    for (let i = startIndex; i <= endIndex; i += this.boardSize) {
+      if (cells[i]) {
+        cells[i].classList.add("ship-preview");
+      }
+    }
   }
 
   toggleChangeOrientation(ship) {
@@ -105,6 +130,7 @@ class Gameboard {
     } else if (ship.orientation === "vertical") {
       ship.orientation = "horizontal";
     }
+    console.log("After toggling orientation:", ship);
   }
 
   initializeOrientationHandler() {
