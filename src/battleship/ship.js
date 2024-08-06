@@ -1,8 +1,9 @@
-class Ship {
+class CreateShip {
   constructor(name, size) {
     this.name = name;
     this.size = size;
     this.hits = 0;
+    this.position = [];
   }
 
   isSunk() {
@@ -15,7 +16,9 @@ class Ship {
     this.hits++;
   }
 
-  removeBoat() {}
+  setPosition(indices) {
+    this.position = indices;
+  }
 }
 
-export { Ship };
+export { CreateShip };
