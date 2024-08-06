@@ -1,4 +1,4 @@
-import { Ship } from "./ship";
+import { CreateShip, Ship } from "./ship";
 import { getShipChosen, shipOptions } from "./shipOptions";
 class Gameboard {
   constructor(user) {
@@ -26,11 +26,16 @@ class Gameboard {
     const cells = document.querySelectorAll(`.${this.user}-board .cell`);
     cells.forEach((cell, index) => {
       cell.addEventListener("mouseover", () => {
-        const chosenShip = getShipChosen();
+        let chosenShip = getShipChosen();
 
         // centerIndex === chosenIndex
         const centerIndex = index;
+
         this.previewBoardShip(centerIndex, chosenShip);
+      });
+      cell.addEventListener("click", () => {
+        let chosenShip = getShipChosen();
+        this.placeChosenShipInBoard(chosenShip);
       });
     });
 
@@ -40,6 +45,8 @@ class Gameboard {
   previewBoardShip(centerIndex, chosenShip) {
     const cells = document.querySelectorAll(`.${this.user}-board .cell`);
     cells.forEach((cell) => cell.classList.remove("ship-preview"));
+
+    this.currPrevShipIndices = [];
 
     const rowStart = Math.floor(centerIndex / this.boardSize) * this.boardSize;
     const rowEnd = rowStart + this.boardSize - 1;
@@ -116,17 +123,13 @@ class Gameboard {
       startIndex = endIndex - (chosenShip.size - 1) * this.boardSize;
     }
 
-    let indices = [];
-
     for (let i = startIndex; i <= endIndex; i += this.boardSize) {
       if (cells[i]) {
         cells[i].classList.add("ship-preview");
-        indices.push(i);
+        this.currPrevShipIndices.push(i);
       }
     }
-    console.log(indices);
-    this.boardState.push(indices);
-    console.log(this.boardState);
+    console.log(this.currPrevShipIndices);
   }
 
   toggleChangeOrientation(chosenShip) {
@@ -150,7 +153,15 @@ class Gameboard {
   }
 
   placeChosenShipInBoard(chosenShip) {
-    const createShip = new Ship(name, indices, size);
+    const ship = new CreateShip(chosenShip.name, chosenShip.size);
+    ship.position = [...this.currPrevShipIndices];
+
+    this.currPrevShipIndices.forEach((index) => {
+      this.boardState[index] = ship.name;
+    });
+
+    this.currPrevShipIndices = [];
+    console.log(this.boardState);
   }
 }
 
