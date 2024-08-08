@@ -173,7 +173,7 @@ class Gameboard {
       });
       this.shipsList.push(ship);
     } else {
-      notifMsg.innerText = `${ship.name} already placed`;
+      notifMsg.innerText = `${ship.name} is already in position Captain`;
     }
 
     console.log(this.shipsList);
@@ -185,7 +185,10 @@ class Gameboard {
     if (this.shipsList.length === 4) {
       const notifMsg = document.querySelector(".notification-msg");
       notifMsg.innerText = `Full Steam Ahead!`;
-      console.log("start game?");
+
+      const startGameModal = document.querySelector(".start-game-modal");
+      startGameModal.style.display = "block";
+
       this.saveBoardState();
     }
   }

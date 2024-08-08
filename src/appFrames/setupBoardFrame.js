@@ -3,14 +3,12 @@ import rotateBtn from "../img/rotate.svg";
 function setupBoardFrame() {
   const main = document.querySelector("main");
 
-  const div = document.createElement("div");
-
-  div.classList.add("setupboard-frame");
-
-  div.innerHTML = `<div class="player-board-container">
+  const setupBoardFrame = document.createElement("div");
+  setupBoardFrame.classList.add("setupboard-frame");
+  setupBoardFrame.innerHTML = `<div class="player-board-container">
         <h1>Player Board</h1>
         <div class="notif-btn-container">
-          <h3 class="notification-msg">Place your ships Admiral!</h3> 
+          <h3 class="notification-msg">Captain our ships are ready to be setup!</h3> 
           <img src="${rotateBtn}" alt="Rotate Button" class="rotate-btn">
         </div>
         <div class="player-board"></div>
@@ -47,11 +45,18 @@ function setupBoardFrame() {
           ></div>
         </div>
       </div>
-      <div>
-      </div>
       `;
 
-  main.appendChild(div);
+  const startGameModal = document.createElement("div");
+  startGameModal.classList.add("start-game-modal");
+
+  startGameModal.innerHTML = `<div class="start-game-modal-content">
+      <h1 class="start-game-title">Start Game?</h1>
+      <button class="start-button">START</button>
+  </div>`;
+
+  main.appendChild(setupBoardFrame);
+  main.appendChild(startGameModal);
 }
 
 export { setupBoardFrame };
