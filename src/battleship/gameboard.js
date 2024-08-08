@@ -6,7 +6,9 @@ class Gameboard {
     this.user = user;
     this.boardState = Array(this.boardSize * this.boardSize).fill(null);
     this.currPrevShipIndices = [];
+    this.shipsList = [];
     this.initializeBoardPositioning();
+    this.loadBoardState();
   }
 
   initializeBoardPositioning() {
@@ -101,7 +103,6 @@ class Gameboard {
         }
       }
     }
-    console.log(this.currPrevShipIndices);
   }
 
   previewVertical(centerIndex, chosenShip, cells) {
@@ -129,7 +130,6 @@ class Gameboard {
         this.currPrevShipIndices.push(i);
       }
     }
-    console.log(this.currPrevShipIndices);
   }
 
   toggleChangeOrientation(chosenShip) {
@@ -156,18 +156,47 @@ class Gameboard {
     const ship = new CreateShip(chosenShip.name, chosenShip.size);
     ship.position = [...this.currPrevShipIndices];
 
-    this.currPrevShipIndices.forEach((index) => {
-      this.boardState[index] = ship.name;
+    if (
+      !this.shipsList.some((existingShip) => existingShip.name === ship.name)
+    ) {
+      this.currPrevShipIndices.forEach((index) => {
+        this.boardState[index] = ship.name;
 
-      const cellElement = document.querySelector(
-        `.${this.user}-board .cell-${index}`,
-      );
+        const cellElement = document.querySelector(
+          `.${this.user}-board .cell-${index}`,
+        );
 
-      cellElement.classList.add(`${ship.name}`);
-    });
+        cellElement.classList.add(`${ship.name}`);
+      });
+      this.shipsList.push(ship);
+      this.saveBoardState();
+    } else {
+      console.log("ship already added");
+    }
 
-    this.currPrevShipIndices = [];
-    console.log(this.boardState);
+    console.log(this.shipsList);
+    this.askGameStart();
+  }
+
+  askGameStart() {
+    if (this.shipsList.length === 4) {
+      console.log("start game?");
+      this.saveBoardState();
+    }
+  }
+
+  saveBoardState() {
+    localStorage.setItem(
+      `${this.user}-boardState`,
+      JSON.stringify(this.boardState),
+    );
+  }
+
+  loadBoardState() {
+    const savedState = localStorage.getItem(`${this.user}-boardState`);
+    if (savedState) {
+      this.boardState = JSON.parse(savedState);
+    }
   }
 }
 
