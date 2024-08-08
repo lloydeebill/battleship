@@ -78,6 +78,11 @@ main {
   gap: 50px;
 }
 
+.setupboard-frame {
+  display: flex;
+  flex-direction: row;
+}
+
 .player-board {
   width: 500px;
   height: 500px;

@@ -1,5 +1,5 @@
-import { CreateShip, Ship } from "./ship";
-import { getShipChosen, shipOptions } from "./shipOptions";
+import { CreateShip } from "./ship";
+import { getShipChosen } from "./shipOptions";
 class Gameboard {
   constructor(user) {
     this.boardSize = 10;
@@ -169,7 +169,6 @@ class Gameboard {
         cellElement.classList.add(`${ship.name}`);
       });
       this.shipsList.push(ship);
-      this.saveBoardState();
     } else {
       console.log("ship already added");
     }

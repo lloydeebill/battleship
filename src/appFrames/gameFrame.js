@@ -1,13 +1,11 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Battleship</title>
-  </head>
-  <body>
-    <main>
-      <!-- <div class="player-board-container">
+function gameFrame() {
+  const main = document.querySelector("main");
+
+  const div = document.createElement("div");
+
+  div.classList.add("game-frame");
+
+  div.innerHTML = `<div class="player-board-container">
         <div>
           <h1>Player Board</h1>
           <button class="change-orientation-btn">Change Orientation</button>
@@ -46,7 +44,9 @@
       <div class="enemy-board-container">
         <h1>Enemy Board</h1>
         <div class="enemy-board"></div>
-      </div> -->
-    </main>
-  </body>
-</html>
+      </div>`;
+
+  main.appendChild(div);
+}
+
+export { gameFrame };
