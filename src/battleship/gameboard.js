@@ -158,6 +158,12 @@ class Gameboard {
 
     this.currPrevShipIndices.forEach((index) => {
       this.boardState[index] = ship.name;
+
+      const cellElement = document.querySelector(
+        `.${this.user}-board .cell-${index}`,
+      );
+
+      cellElement.classList.add(`${ship.name}`);
     });
 
     this.currPrevShipIndices = [];

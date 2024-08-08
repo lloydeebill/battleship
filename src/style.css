@@ -115,25 +115,25 @@ main {
   border: 2px solid white;
 }
 
-.carrier {
+.carrier-preview {
   width: 250px;
   height: 50px;
   background-color: red;
 }
 
-.battleship {
+.battleship-preview {
   width: 200px;
   height: 50px;
   background-color: orange;
 }
 
-.destroyer {
+.destroyer-preview {
   width: 150px;
   height: 50px;
   background-color: yellow;
 }
 
-.submarine {
+.submarine-preview {
   width: 100px;
   height: 50px;
   background-color: green;
@@ -141,4 +141,20 @@ main {
 
 .ship-preview {
   background-color: rgba(0, 128, 255, 0.5);
+}
+
+.carrier {
+  background-color: red;
+}
+
+.battleship {
+  background-color: orange;
+}
+
+.destroyer {
+  background-color: yellow;
+}
+
+.submarine {
+  background-color: green;
 }
