@@ -154,6 +154,7 @@ class Gameboard {
 
   placeChosenShipInBoard(chosenShip) {
     const ship = new CreateShip(chosenShip.name, chosenShip.size);
+    const notifMsg = document.querySelector(".notification-msg");
     ship.position = [...this.currPrevShipIndices];
 
     if (
@@ -167,18 +168,23 @@ class Gameboard {
         );
 
         cellElement.classList.add(`${ship.name}`);
+
+        notifMsg.innerText = `${ship.name} deployed!`;
       });
       this.shipsList.push(ship);
     } else {
-      console.log("ship already added");
+      notifMsg.innerText = `${ship.name} already placed`;
     }
 
     console.log(this.shipsList);
+    console.log(this.boardState);
     this.askGameStart();
   }
 
   askGameStart() {
     if (this.shipsList.length === 4) {
+      const notifMsg = document.querySelector(".notification-msg");
+      notifMsg.innerText = `Full Steam Ahead!`;
       console.log("start game?");
       this.saveBoardState();
     }

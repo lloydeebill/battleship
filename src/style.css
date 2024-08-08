@@ -121,12 +121,13 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   border-bottom-right-radius: 40%;
   border-bottom-left-radius: 40%;
-
+  cursor: pointer;
 }
 
 .setupboard-frame {
   display: flex;
   flex-direction: row;
+  gap: 50px;
 }
 
 .player-board {
@@ -137,6 +138,12 @@ body {
   flex-wrap: wrap;
 }
 
+.player-board-container {
+  displaY: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .rotate-btn {
   width: 40px;
   height: 40px;
@@ -144,6 +151,7 @@ body {
 
 .rotate-btn:hover {
   position: relative;
+  cursor: pointer;
   bottom: 5px;
 }
 
@@ -156,6 +164,16 @@ body {
   gap: 50px;
   justify-content: center;
   align-items: center;
+}
+
+.ship-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px
+}
+
+.notification-msg {
+  color: black;
 }
 
 
@@ -203,23 +221,24 @@ body {
   background-color: rgba(0, 128, 255, 0.5);
 }
 
-.carrier {
+.Carrier {
   background-color: red;
 }
 
-.battleship {
+.Battleship {
   background-color: orange;
 }
 
-.destroyer {
+.Destroyer {
   background-color: yellow;
 }
 
-.submarine {
+.Submarine {
   background-color: green;
 }
 
-.player-board-container>div:first-child {
+.notif-btn-container {
   display: flex;
-  gap: 50px;
+  align-items: center;
+  gap: 30px;
 }
