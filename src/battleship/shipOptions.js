@@ -23,6 +23,24 @@ function shipOptions() {
       lastSavedShip = ship;
     });
   });
+
+  if (shipOptions.length > 0) {
+    const firstShip = shipOptions[0];
+
+    if (lastSavedShip) {
+      lastSavedShip.classList.remove("ship-chosen");
+    }
+
+    firstShip.classList.add("ship-chosen");
+
+    shipChosen = {
+      name: firstShip.getAttribute("data-name"),
+      size: parseInt(firstShip.getAttribute("data-size"), 10),
+      orientation: firstShip.getAttribute("data-orientation"),
+    };
+
+    lastSavedShip = firstShip;
+  }
 }
 
 function getShipChosen() {

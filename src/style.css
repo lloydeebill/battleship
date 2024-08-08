@@ -90,7 +90,13 @@ main {
   width: 500px;
   height: 500px;
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
 }
+
 
 .enemy-board-container {
   display: none;
@@ -103,13 +109,6 @@ main {
   box-sizing: border-box;
 }
 
-.ship-options {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  justify-content: center;
-  align-items: center;
-}
 
 .ship-chosen {
   border: 2px solid white;
@@ -157,4 +156,9 @@ main {
 
 .submarine {
   background-color: green;
+}
+
+.player-board-container>div:first-child {
+  display: flex;
+  gap: 50px;
 }
