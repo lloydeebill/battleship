@@ -41,10 +41,7 @@ function gameFrame() {
           ></div>
         </div>
       </div>
-      <div class="enemy-board-container">
-        <h1>Enemy Board</h1>
-        <div class="enemy-board"></div>
-      </div>`;
+     `;
 
   main.appendChild(div);
 }

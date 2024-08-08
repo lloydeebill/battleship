@@ -1,10 +1,12 @@
 function landingFrame() {
   const main = document.querySelector("main");
 
-  const div = document.createElement("landing-frame");
+  const div = document.createElement("div");
 
-  div.innerHTML = `<h1>Welcome to Battle Ship</h2>
-  <button class="start-game">Start Game</button>`;
+  div.classList.add("landing-frame");
+
+  div.innerHTML = `<h1>Battle Ship⛴</h2>
+  <button class="start-button">All Aboard</button>`;
 
   main.appendChild(div);
 }

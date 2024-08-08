@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Notable&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Symbols:wght@100..900&display=swap');
+
+
 
 
 *::before,
@@ -72,10 +75,53 @@ body {
   align-items: center;
 }
 
-main {
+
+.landing-frame {
   display: flex;
-  flex-direction: row;
-  gap: 50px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-frame>h1 {
+  font-size: 6rem;
+  font-style: italic;
+  font-family: 'Notable', 'Note Sans Symbols';
+  color: rgb(255, 105, 5);
+  margin-bottom: 50px;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.start-button {
+  width: 350px;
+  font-size: 3rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-bottom-right-radius: 40%;
+  border-bottom-left-radius: 40%;
+  color: white;
+  border: none;
+  animation: moveUpDown 3s ease-in-out infinite;
+}
+
+.start-button:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom-right-radius: 40%;
+  border-bottom-left-radius: 40%;
+
 }
 
 .setupboard-frame {

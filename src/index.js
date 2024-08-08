@@ -8,7 +8,7 @@ import { shipOptions } from "./battleship/shipOptions";
 function initializeApp() {
   landingFrame();
 
-  const startButton = document.querySelector(".start-game");
+  const startButton = document.querySelector(".start-button");
   startButton.addEventListener("click", () => {
     const main = document.querySelector("main");
     main.innerHTML = ``;
