@@ -140,7 +140,7 @@ class Gameboard {
   }
 
   initializeOrientationHandler() {
-    const changeOrientBtn = document.querySelector(".change-orientation-btn");
+    const changeOrientBtn = document.querySelector(".rotate-btn");
 
     changeOrientBtn.addEventListener("click", () => {
       const chosenShip = getShipChosen();

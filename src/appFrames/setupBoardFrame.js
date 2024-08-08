@@ -1,3 +1,5 @@
+import rotateBtn from "../img/rotate.svg";
+
 function setupBoardFrame() {
   const main = document.querySelector("main");
 
@@ -8,7 +10,7 @@ function setupBoardFrame() {
   div.innerHTML = `<div class="player-board-container">
         <div>
           <h1>Player Board</h1>
-          <button class="change-orientation-btn">Change Orientation</button>
+          <img src="${rotateBtn}" alt="Rotate Button" class="rotate-btn">
         </div>
         <div class="player-board"></div>
       </div>

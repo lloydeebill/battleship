@@ -137,6 +137,16 @@ body {
   flex-wrap: wrap;
 }
 
+.rotate-btn {
+  width: 40px;
+  height: 40px;
+}
+
+.rotate-btn:hover {
+  position: relative;
+  bottom: 5px;
+}
+
 .ship-options {
   width: 500px;
   height: 500px;
