@@ -169,7 +169,7 @@ body {
 .ship-options-container {
   display: flex;
   flex-direction: column;
-  gap: 60px
+  gap: 15px
 }
 
 .notification-msg {

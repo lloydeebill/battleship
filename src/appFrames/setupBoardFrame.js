@@ -17,6 +17,9 @@ function setupBoardFrame() {
       </div>
       <div class="ship-options-container">
         <h1>Ship Options</h1>
+        <div>
+          <h3 class="ship-chosen-msg"></h3>
+        </div>
         <div class="ship-options">
           <div
             class="carrier-preview"
@@ -43,6 +46,8 @@ function setupBoardFrame() {
             data-orientation="horizontal"
           ></div>
         </div>
+      </div>
+      <div>
       </div>
       `;
 

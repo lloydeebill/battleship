@@ -3,6 +3,7 @@ let lastSavedShip = null;
 
 function shipOptions() {
   const shipOptionsContainer = document.querySelector(".ship-options");
+  const shipChosenMsg = document.querySelector(".ship-chosen-msg");
 
   const shipOptions = shipOptionsContainer.children;
 
@@ -19,6 +20,8 @@ function shipOptions() {
         size: parseInt(ship.getAttribute("data-size"), 10),
         orientation: ship.getAttribute("data-orientation"),
       };
+
+      shipChosenMsg.innerText = `${shipChosen.name} selected`;
 
       lastSavedShip = ship;
     });
@@ -38,6 +41,8 @@ function shipOptions() {
       size: parseInt(firstShip.getAttribute("data-size"), 10),
       orientation: firstShip.getAttribute("data-orientation"),
     };
+
+    shipChosenMsg.innerText = `${shipChosen.name} selected`;
 
     lastSavedShip = firstShip;
   }
