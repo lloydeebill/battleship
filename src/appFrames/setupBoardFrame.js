@@ -51,8 +51,8 @@ function setupBoardFrame() {
   startGameModal.classList.add("start-game-modal");
 
   startGameModal.innerHTML = `<div class="start-game-modal-content">
-      <h1 class="start-game-title">Start Game?</h1>
-      <button class="start-button">START</button>
+      <h1 class="start-game-title">Awaiting Your Orders Captain</h1>
+      <button class="start-game-button">Fire</button>
   </div>`;
 
   main.appendChild(setupBoardFrame);

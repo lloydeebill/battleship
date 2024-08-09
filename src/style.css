@@ -96,6 +96,7 @@ main {
   color: rgb(255, 105, 5);
   margin-bottom: 50px;
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: 2px black;
 }
 
 @keyframes moveUpDown {
@@ -112,9 +113,12 @@ main {
   }
 }
 
-.start-button {
-  width: 350px;
-  font-size: 2.5rem;
+.play-button {
+  width: 250px;
+  height: 70px;
+  padding-bottom: 10px;
+  font-size: 2.0rem;
+  font-family: 'Notable', 'Courier New', Courier, monospace;
   background-color: rgba(0, 0, 0, 0.3);
   border-bottom-right-radius: 40%;
   border-bottom-left-radius: 40%;
@@ -123,10 +127,10 @@ main {
   animation: moveUpDown 3s ease-in-out infinite;
 }
 
-.start-button:hover {
-  background-color: rgba(0, 0, 0, 0.5);
-  border-bottom-right-radius: 40%;
-  border-bottom-left-radius: 40%;
+.play-button:hover,
+.start-game-button:hover {
+  background-color: rgb(255, 105, 5);
+  color: black;
   cursor: pointer;
 }
 
@@ -270,9 +274,23 @@ main {
 }
 
 .start-game-title {
-  font-size: 6rem;
+  font-size: 4rem;
   font-family: 'Notable', 'Note Sans Symbols';
   color: rgb(255, 105, 5);
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  -webkit-text-stroke: 2px black;
+}
+
+.start-game-button {
+  width: 250px;
+  font-size: 2.5rem;
+  padding-bottom: 15px;
+  font-family: 'Notable', 'Courier New', Courier, monospace;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 40%;
+  border-bottom-right-radius: 40%;
+  color: white;
+  border: none;
+  animation: moveUpDown 3s ease-in-out infinite;
 }

@@ -1,4 +1,4 @@
-function landingFrame() {
+function initializeLandingFrame() {
   const main = document.querySelector("main");
 
   const div = document.createElement("div");
@@ -6,9 +6,9 @@ function landingFrame() {
   div.classList.add("landing-frame");
 
   div.innerHTML = `<h1>Battle Ship⛴</h2>
-  <button class="start-button">All Aboard</button>`;
+  <button class="play-button">Play</button>`;
 
   main.appendChild(div);
 }
 
-export { landingFrame };
+export { initializeLandingFrame };
