@@ -294,3 +294,9 @@ main {
   border: none;
   animation: moveUpDown 3s ease-in-out infinite;
 }
+
+.game-frame {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}

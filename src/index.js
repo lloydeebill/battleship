@@ -3,8 +3,8 @@ import "./style.css";
 import { initializeLandingFrame } from "./appFrames/landingFrame";
 import { setupBoardFrame } from "./appFrames/setupBoardFrame";
 import { Gameboard } from "./battleship/gameboard";
-import { shipOptions } from "./battleship/shipOptions";
 import { initializeGameFrame } from "./appFrames/gameFrame";
+import { Gameplay } from "./battleship/gameplay";
 
 function initializeApp() {
   // Initialize the landing frame
@@ -25,7 +25,6 @@ function initializeApp() {
     const player = new Gameboard("player");
 
     // Set up ship options
-    shipOptions();
 
     // Handle start game button click to transition to game frame
     const startGameButton = document.querySelector(".start-game-button");
@@ -34,6 +33,10 @@ function initializeApp() {
 
       // Initialize the game frame
       initializeGameFrame();
+
+      const gamePlay = new Gameplay(player.loadBoardState);
+
+      console.log(gamePlay);
     });
   });
 }

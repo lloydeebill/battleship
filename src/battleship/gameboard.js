@@ -1,5 +1,5 @@
 import { CreateShip } from "./ship";
-import { getShipChosen } from "./shipOptions";
+
 class Gameboard {
   constructor(user) {
     this.boardSize = 10;
@@ -7,16 +7,20 @@ class Gameboard {
     this.boardState = Array(this.boardSize * this.boardSize).fill(null);
     this.currPrevShipIndices = [];
     this.shipsList = [];
+    this.shipChosen = null;
+    this.lastSavedShip = null;
+
     this.initializeBoardPositioning();
     this.loadBoardState();
+    this.shipOptions();
   }
 
   initializeBoardPositioning() {
-    this.renderBoard();
+    this.renderBoardPlacement();
     this.initializeOrientationHandler();
   }
 
-  renderBoard() {
+  renderBoardPlacement() {
     const board = document.querySelector(`.${this.user}-board`);
 
     for (let i = 0; i < this.boardSize * this.boardSize; i++) {
@@ -26,18 +30,16 @@ class Gameboard {
     }
 
     const cells = document.querySelectorAll(`.${this.user}-board .cell`);
-    cells.forEach((cell, index) => {
+    cells.forEach((cell, centerIndex) => {
       cell.addEventListener("mouseover", () => {
-        let chosenShip = getShipChosen();
-
-        // centerIndex === chosenIndex
-        const centerIndex = index;
-
-        this.previewBoardShip(centerIndex, chosenShip);
+        if (this.shipChosen) {
+          this.previewBoardShip(centerIndex, this.shipChosen);
+        }
       });
       cell.addEventListener("click", () => {
-        let chosenShip = getShipChosen();
-        this.placeChosenShipInBoard(chosenShip);
+        if (this.shipChosen) {
+          this.placeChosenShipInBoard(this.shipChosen);
+        }
       });
     });
 
@@ -143,16 +145,63 @@ class Gameboard {
     const changeOrientBtn = document.querySelector(".rotate-btn");
 
     changeOrientBtn.addEventListener("click", () => {
-      const chosenShip = getShipChosen();
-
-      if (chosenShip) {
-        this.toggleChangeOrientation(chosenShip);
-        this.previewBoardShip(chosenShip.currentIndex, chosenShip);
+      if (this.shipChosen) {
+        this.toggleChangeOrientation(this.shipChosen);
+        this.previewBoardShip(this.shipChosen.currentIndex, this.shipChosen);
       }
     });
   }
 
+  shipOptions() {
+    const shipOptionsContainer = document.querySelector(".ship-options");
+    const shipChosenMsg = document.querySelector(".ship-chosen-msg");
+
+    const shipOptions = shipOptionsContainer.children;
+
+    Array.from(shipOptions).forEach((ship) => {
+      ship.addEventListener("click", () => {
+        if (this.lastSavedShip) {
+          this.lastSavedShip.classList.remove("ship-chosen");
+        }
+
+        ship.classList.add("ship-chosen");
+
+        this.shipChosen = {
+          name: ship.getAttribute("data-name"),
+          size: parseInt(ship.getAttribute("data-size"), 10),
+          orientation: ship.getAttribute("data-orientation"),
+        };
+
+        shipChosenMsg.innerText = `${this.shipChosen.name} selected`;
+
+        this.lastSavedShip = ship;
+      });
+    });
+
+    if (shipOptions.length > 0) {
+      const firstShip = shipOptions[0];
+
+      if (this.lastSavedShip) {
+        this.lastSavedShip.classList.remove("ship-chosen");
+      }
+
+      firstShip.classList.add("ship-chosen");
+
+      this.shipChosen = {
+        name: firstShip.getAttribute("data-name"),
+        size: parseInt(firstShip.getAttribute("data-size"), 10),
+        orientation: firstShip.getAttribute("data-orientation"),
+      };
+
+      shipChosenMsg.innerText = `${this.shipChosen.name} selected`;
+
+      this.lastSavedShip = firstShip;
+    }
+  }
+
   placeChosenShipInBoard(chosenShip) {
+    if (!chosenShip) return;
+
     const ship = new CreateShip(chosenShip.name, chosenShip.size);
     const notifMsg = document.querySelector(".notification-msg");
     ship.position = [...this.currPrevShipIndices];
@@ -176,8 +225,6 @@ class Gameboard {
       notifMsg.innerText = `${ship.name} is already in position Captain`;
     }
 
-    console.log(this.shipsList);
-    console.log(this.boardState);
     this.askGameStart();
   }
 
@@ -198,6 +245,7 @@ class Gameboard {
       `${this.user}-boardState`,
       JSON.stringify(this.boardState),
     );
+    return this.boardState;
   }
 
   loadBoardState() {
@@ -205,6 +253,8 @@ class Gameboard {
     if (savedState) {
       this.boardState = JSON.parse(savedState);
     }
+
+    return this.boardState;
   }
 }
 
