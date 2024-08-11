@@ -23,6 +23,7 @@ function initializeApp() {
 
     // Initialize player gameboard
     const player = new Gameboard("player");
+    const enemy = new Gameboard("enemy");
 
     // Set up ship options
 

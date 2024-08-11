@@ -146,14 +146,16 @@ class Gameboard {
   }
 
   initializeOrientationHandler() {
-    const changeOrientBtn = document.querySelector(".rotate-btn");
+    if (this.user === "player") {
+      const changeOrientBtn = document.querySelector(".rotate-btn");
 
-    changeOrientBtn.addEventListener("click", () => {
-      if (this.shipChosen) {
-        this.toggleChangeOrientation(this.shipChosen);
-        this.previewBoardShip(this.shipChosen.currentIndex, this.shipChosen);
-      }
-    });
+      changeOrientBtn.addEventListener("click", () => {
+        if (this.shipChosen) {
+          this.toggleChangeOrientation(this.shipChosen);
+          this.previewBoardShip(this.shipChosen.currentIndex, this.shipChosen);
+        }
+      });
+    }
   }
 
   shipOptions() {
