@@ -12,6 +12,7 @@ function setupBoardFrame() {
           <img src="${rotateBtn}" alt="Rotate Button" class="rotate-btn">
         </div>
         <div class="player-board"></div>
+        <div class="enemy-board"></div>
       </div>
       <div class="ship-options-container">
         <h1>Ship Options</h1>

@@ -25,29 +25,33 @@ class Gameboard {
 
     for (let i = 0; i < this.boardSize * this.boardSize; i++) {
       const cell = document.createElement("div");
-      cell.classList.add(`cell-${i}`, "cell");
+      cell.classList.add(`${this.user}-cell`, `${this.user}-cell-${i}`);
       board.appendChild(cell);
     }
 
-    const cells = document.querySelectorAll(`.${this.user}-board .cell`);
-    cells.forEach((cell, centerIndex) => {
-      cell.addEventListener("mouseover", () => {
-        if (this.shipChosen) {
-          this.previewBoardShip(centerIndex, this.shipChosen);
-        }
+    if (this.user === "player") {
+      const cells = document.querySelectorAll(`.${this.user}-cell`);
+      cells.forEach((cell, centerIndex) => {
+        cell.addEventListener("mouseover", () => {
+          if (this.shipChosen) {
+            this.previewBoardShip(centerIndex, this.shipChosen);
+          }
+        });
+        cell.addEventListener("click", () => {
+          if (this.shipChosen) {
+            this.placeChosenShipInBoard(this.shipChosen);
+          }
+        });
       });
-      cell.addEventListener("click", () => {
-        if (this.shipChosen) {
-          this.placeChosenShipInBoard(this.shipChosen);
-        }
-      });
-    });
+    }
 
     return board;
   }
 
   previewBoardShip(centerIndex, chosenShip) {
-    const cells = document.querySelectorAll(`.${this.user}-board .cell`);
+    const cells = document.querySelectorAll(
+      `.${this.user}-board .${this.user}-cell`,
+    );
     cells.forEach((cell) => cell.classList.remove("ship-preview"));
 
     this.currPrevShipIndices = [];
@@ -175,8 +179,6 @@ class Gameboard {
         shipChosenMsg.innerText = `${this.shipChosen.name} selected`;
 
         this.lastSavedShip = ship;
-        console.log(this.lastSavedShip);
-        console.log(this.shipChosen);
       });
     });
 
@@ -231,7 +233,7 @@ class Gameboard {
         this.boardState[index] = ship.name;
 
         const cellElement = document.querySelector(
-          `.${this.user}-board .cell-${index}`,
+          `.${this.user}-board .${this.user}-cell-${index}`,
         );
 
         cellElement.classList.add(`${ship.name}`);
