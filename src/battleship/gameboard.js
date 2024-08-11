@@ -5,11 +5,11 @@ class Gameboard {
     this.boardSize = 10;
     this.user = user;
     this.boardState = Array(this.boardSize * this.boardSize).fill(null);
+    this.board = [];
     this.currPrevShipIndices = [];
     this.shipsList = [];
     this.shipChosen = null;
     this.lastSavedShip = null;
-
     this.initializeBoardPositioning();
     this.loadBoardState();
     this.shipOptions();
@@ -175,6 +175,8 @@ class Gameboard {
         shipChosenMsg.innerText = `${this.shipChosen.name} selected`;
 
         this.lastSavedShip = ship;
+        console.log(this.lastSavedShip);
+        console.log(this.shipChosen);
       });
     });
 
@@ -199,16 +201,32 @@ class Gameboard {
     }
   }
 
+  isPlacementValid(ship) {
+    const { position } = ship;
+
+    const positionsValid = position.every((index) => {
+      return (
+        index >= 0 &&
+        index < this.boardSize * this.boardSize &&
+        this.boardState[index] === null
+      );
+    });
+
+    const shipAlreadyPlaced = this.shipsList.some(
+      (existingShip) => existingShip.name === ship.name,
+    );
+
+    return positionsValid && !shipAlreadyPlaced;
+  }
+
+  // Modified function to place the chosen ship in the board
   placeChosenShipInBoard(chosenShip) {
     if (!chosenShip) return;
 
     const ship = new CreateShip(chosenShip.name, chosenShip.size);
-    const notifMsg = document.querySelector(".notification-msg");
     ship.position = [...this.currPrevShipIndices];
 
-    if (
-      !this.shipsList.some((existingShip) => existingShip.name === ship.name)
-    ) {
+    if (this.isPlacementValid(ship)) {
       this.currPrevShipIndices.forEach((index) => {
         this.boardState[index] = ship.name;
 
@@ -218,11 +236,14 @@ class Gameboard {
 
         cellElement.classList.add(`${ship.name}`);
 
+        const notifMsg = document.querySelector(".notification-msg");
         notifMsg.innerText = `${ship.name} deployed!`;
       });
+
       this.shipsList.push(ship);
     } else {
-      notifMsg.innerText = `${ship.name} is already in position Captain`;
+      const notifMsg = document.querySelector(".notification-msg");
+      notifMsg.innerText = `${ship.name} placement is invalid.`;
     }
 
     this.askGameStart();
@@ -245,16 +266,29 @@ class Gameboard {
       `${this.user}-boardState`,
       JSON.stringify(this.boardState),
     );
-    return this.boardState;
+    localStorage.setItem(
+      `${this.user}-shipsList`,
+      JSON.stringify(this.shipsList),
+    );
   }
 
   loadBoardState() {
-    const savedState = localStorage.getItem(`${this.user}-boardState`);
-    if (savedState) {
-      this.boardState = JSON.parse(savedState);
+    const savedBoardState = localStorage.getItem(`${this.user}-boardState`);
+    const savedShipsList = localStorage.getItem(`${this.user}-shipsList`);
+
+    // Parse only if the value is not null
+    if (savedBoardState !== null) {
+      this.boardState = JSON.parse(savedBoardState);
     }
 
-    return this.boardState;
+    if (savedShipsList !== null) {
+      this.shipsList = JSON.parse(savedShipsList);
+    }
+
+    return {
+      boardState: this.boardState,
+      shipsList: this.shipsList,
+    };
   }
 }
 
