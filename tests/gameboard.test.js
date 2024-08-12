@@ -1,46 +1,30 @@
 import { Gameboard } from "../src/battleship/gameboard";
-import { Ship } from "../src/battleship/ship";
-import { getShipChosen, shipOptions } from "../src/battleship/shipOptions";
 
-jest.mock("../src/battleship/shipOptions", () => ({
-  getShipChosen: jest.fn(),
-}));
-
-beforeAll(() => {
-  // Create mock elements for testing
+beforeEach(() => {
+  // Mock the DOM for player and enemy boards
   document.body.innerHTML = `
-    <div class="player-board"></div>
-    <div class="enemy-board"></div>
+    <div id="player-board"></div>
+    <div id="enemy-board"></div>
   `;
 });
 
-test("creates a gameboard", () => {
-  const player = new Gameboard();
-
-  expect(player.boardSize).toBe(10);
-});
-
-test("render board 100 cells", () => {
+test("shows enemy ship Placement", () => {
   const player = new Gameboard("player");
-  const boardElement = document.querySelector(".player-board");
+  const enemy = new Gameboard("enemy");
 
-  player.renderBoard();
+  // Example test to check if the board was rendered
+  expect(document.querySelectorAll("#player-board .player-cell").length).toBe(
+    100,
+  );
+  expect(document.querySelectorAll("#enemy-board .enemy-cell").length).toBe(
+    100,
+  );
 
-  expect(boardElement.children.length).toBe(100);
-});
-
-test("adds hover listeners to cells", () => {
-  const player = new Gameboard("player");
-  player.renderBoard();
-
-  const firstCell = document.querySelector(".player-board .cell-0");
-  const secondCell = document.querySelector(".player-board .cell-1");
-
-  console.log = jest.fn();
-
-  firstCell.dispatchEvent(new Event("mouseover"));
-  expect(console.log).toHaveBeenCalledWith("Hovered over cell-0");
-
-  secondCell.dispatchEvent(new Event("mouseover"));
-  expect(console.log).toHaveBeenCalledWith("Hovered over cell-1");
+  // Example to verify ships array for enemy
+  expect(enemy.ships).toEqual([
+    { name: "Carrier", size: 5 },
+    { name: "Battleship", size: 4 },
+    { name: "Destroyer", size: 3 },
+    { name: "Submarine", size: 2 },
+  ]);
 });

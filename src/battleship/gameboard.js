@@ -45,7 +45,86 @@ class Gameboard {
       });
     }
 
+    if (this.user === "enemy") {
+      this.enemyShipPlacement();
+    }
+
     return board;
+  }
+
+  enemyShipPlacement() {
+    const enemyShips = [
+      {
+        name: "Carrier",
+        size: 5,
+      },
+      {
+        name: "Battleship",
+        size: 4,
+      },
+      {
+        name: "Destroyer",
+        size: 3,
+      },
+      {
+        name: "Submarine",
+        size: 2,
+      },
+    ];
+
+    this.currPrevShipIndices = [];
+
+    enemyShips.forEach((ship) => {
+      const enemyShipOrientaion =
+        Math.random() > 0.5 ? "horizontal" : "vertical";
+      console.log(ship.name, enemyShipOrientaion);
+
+      const enemyShip = new CreateShip(ship.name, ship.size);
+
+      const enemyStartIndex = Math.floor(
+        Math.random() * (this.boardSize * this.boardSize),
+      );
+
+      this.calculateShipPlacement(
+        enemyStartIndex,
+        enemyShipOrientaion,
+        enemyShip.size,
+      );
+    });
+  }
+
+  calculateShipPlacement(enemyStartIndex, enemyShipOrientation, enemyShipSize) {
+    if (enemyShipOrientation === "horizontal") {
+      let startIndex = enemyStartIndex;
+      let endIndex = startIndex + enemyShipSize - 1;
+
+      const rowStart = Math.floor(startIndex / this.boardSize) * this.boardSize;
+      const rowEnd = rowStart + this.boardSize - 1;
+
+      if (endIndex > rowEnd) {
+        endIndex = rowEnd;
+        startIndex = endIndex - enemyShipSize + 1;
+      }
+
+      for (let i = startIndex; i <= endIndex; i++) {
+        this.currPrevShipIndices.push(i);
+      }
+    } else if (enemyShipOrientation === "vertical") {
+      let startIndex = enemyStartIndex;
+      let endIndex = startIndex + (enemyShipSize - 1) * this.boardSize;
+
+      const colStart = startIndex % this.boardSize;
+
+      if (endIndex >= this.boardSize * this.boardSize) {
+        endIndex = colStart * (this.boardSize - 1) * this.boardSize;
+        startIndex = endIndex - (enemyShipSize - 1) * this.boardSize;
+      }
+
+      for (let i = startIndex; i <= endIndex; i += this.boardSize) {
+        this.currPrevShipIndices.push(i);
+      }
+    }
+    console.log(this.currPrevShipIndices);
   }
 
   previewBoardShip(centerIndex, chosenShip) {
