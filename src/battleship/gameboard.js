@@ -318,29 +318,42 @@ class Gameboard {
 
     const notifMsg = document.querySelector(".notification-msg");
 
-    if (this.isPlacementValid(ship)) {
-      this.currPrevShipIndices.forEach((index) => {
-        this.boardState[index] = ship.name;
+    if (this.user === "player") {
+      if (this.isPlacementValid(ship)) {
+        this.currPrevShipIndices.forEach((index) => {
+          this.boardState[index] = ship.name;
 
-        const cellElement = document.querySelector(
-          `.${this.user}-board .${this.user}-cell-${index}`,
-        );
+          const cellElement = document.querySelector(
+            `.${this.user}-board .${this.user}-cell-${index}`,
+          );
 
-        cellElement.classList.add(`${ship.name}`);
-      });
+          cellElement.classList.add(`${ship.name}`);
+        });
 
-      this.shipsList.push(ship);
-      if (this.user === "player") {
+        this.shipsList.push(ship);
+
         notifMsg.innerText = `${ship.name} deployed!`;
-      }
-    } else {
-      if (this.user === "player") {
+      } else {
         notifMsg.innerText = `Invalid placement for ${ship.name}. Please try again.`;
       }
-    }
 
-    if (this.user === "player") {
       this.askGameStart();
+    } else if (this.user === "enemy") {
+      if (this.isPlacementValid(ship)) {
+        this.currPrevShipIndices.forEach((index) => {
+          this.boardState[index] = ship.name;
+
+          const cellElement = document.querySelector(
+            `.${this.user}-board .${this.user}-cell-${index}`,
+          );
+
+          cellElement.classList.add(`${ship.name}`);
+        });
+
+        this.shipsList.push(ship);
+      }
+
+      this.saveBoardState();
     }
   }
 
@@ -351,23 +364,14 @@ class Gameboard {
 
       const startGameModal = document.querySelector(".start-game-modal");
       startGameModal.style.display = "block";
-
-      this.saveBoardState();
     }
+
+    this.saveBoardState();
   }
 
-  updateBoardUI() {
-    const cells = document.querySelectorAll(`.${this.user}-cell`);
-    cells.forEach((cell) => cell.classList.remove("ship-preview"));
-
-    this.shipsList.forEach((ship) => {
-      ship.position.forEach((index) => {
-        const cellElement = document.querySelector(
-          `.${this.user}-board .${this.user}-cell-${index}`,
-        );
-        cellElement.classList.add(ship.name);
-      });
-    });
+  clearBoardState() {
+    localStorage.removeItem(`${this.user}-boardState`);
+    localStorage.removeItem(`${this.user}-shipsList`);
   }
 
   saveBoardState() {
@@ -375,30 +379,17 @@ class Gameboard {
       `${this.user}-boardState`,
       JSON.stringify(this.boardState),
     );
-    localStorage.setItem(
-      `${this.user}-shipsList`,
-      JSON.stringify(this.shipsList),
-    );
   }
 
   loadBoardState() {
     const savedBoardState = localStorage.getItem(`${this.user}-boardState`);
-    const savedShipsList = localStorage.getItem(`${this.user}-shipsList`);
 
     // Parse only if the value is not null
     if (savedBoardState !== null) {
       this.boardState = JSON.parse(savedBoardState);
     }
 
-    if (savedShipsList !== null) {
-      this.shipsList = JSON.parse(savedShipsList);
-    }
-
-    return {
-      boardState: this.boardState,
-      shipsList: this.shipsList,
-      updateBoardUI: this.updateBoardUI(),
-    };
+    return this.boardState;
   }
 }
 

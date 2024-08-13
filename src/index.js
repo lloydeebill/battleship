@@ -13,6 +13,9 @@ function initializeApp() {
   // Reference to the main container
   const main = document.querySelector("main");
 
+  localStorage.removeItem("player-boardState");
+  localStorage.removeItem("enemy-boardState");
+
   // Handle play button click to transition to setup board frame
   const playButton = document.querySelector(".play-button");
   playButton.addEventListener("click", () => {
@@ -39,8 +42,6 @@ function initializeApp() {
         player.loadBoardState(),
         enemy.loadBoardState(),
       );
-
-      console.log(gamePlay);
     });
   });
 }

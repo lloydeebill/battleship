@@ -2,11 +2,19 @@ class Gameplay {
   constructor(playerBoardState, enemyBoardState) {
     this.playerBoardState = playerBoardState;
     this.enemyBoardState = enemyBoardState;
+    this.initializeGamePlay();
   }
 
-  showBoardStates() {
-    console.log(this.playerBoardState);
-    console.log(this.enemyBoardState);
+  initializeGamePlay() {
+    this.populateBoards();
+  }
+
+  populateBoards() {
+    const playerBoard = document.querySelector(".player-board");
+
+    this.playerBoardState.forEach((cell) => {
+      console.log(`${cell}`);
+    });
   }
 }
 
