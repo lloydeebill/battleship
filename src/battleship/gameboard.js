@@ -75,21 +75,29 @@ class Gameboard {
     this.currPrevShipIndices = [];
 
     enemyShips.forEach((ship) => {
-      const enemyShipOrientaion =
-        Math.random() > 0.5 ? "horizontal" : "vertical";
-      console.log(ship.name, enemyShipOrientaion);
+      let validPlacement = false;
 
-      const enemyShip = new CreateShip(ship.name, ship.size);
+      while (!validPlacement) {
+        const enemyShipOrientaion =
+          Math.random() > 0.5 ? "horizontal" : "vertical";
+        const enemyStartIndex = Math.floor(
+          Math.random() * (this.boardSize * this.boardSize),
+        );
 
-      const enemyStartIndex = Math.floor(
-        Math.random() * (this.boardSize * this.boardSize),
-      );
+        this.currPrevShipIndices = [];
+        this.calculateShipPlacement(
+          enemyStartIndex,
+          enemyShipOrientaion,
+          ship.size,
+        );
 
-      this.calculateShipPlacement(
-        enemyStartIndex,
-        enemyShipOrientaion,
-        enemyShip.size,
-      );
+        ship.position = [...this.currPrevShipIndices];
+
+        if (this.isPlacementValid(ship)) {
+          this.placeChosenShipInBoard(ship);
+          validPlacement = true;
+        }
+      }
     });
   }
 
@@ -116,7 +124,7 @@ class Gameboard {
       const colStart = startIndex % this.boardSize;
 
       if (endIndex >= this.boardSize * this.boardSize) {
-        endIndex = colStart * (this.boardSize - 1) * this.boardSize;
+        endIndex = colStart + (this.boardSize - 1) * this.boardSize;
         startIndex = endIndex - (enemyShipSize - 1) * this.boardSize;
       }
 
@@ -125,6 +133,7 @@ class Gameboard {
       }
     }
     console.log(this.currPrevShipIndices);
+    console.log(this.boardState);
   }
 
   previewBoardShip(centerIndex, chosenShip) {
@@ -328,6 +337,8 @@ class Gameboard {
       const notifMsg = document.querySelector(".notification-msg");
       notifMsg.innerText = `${ship.name} placement is invalid.`;
     }
+
+    console.log(this.boardState);
 
     this.askGameStart();
   }
