@@ -22,7 +22,7 @@ function initializeApp() {
     setupBoardFrame();
 
     // Initialize player gameboard
-    // const player = new Gameboard("player");
+    const player = new Gameboard("player");
     const enemy = new Gameboard("enemy");
 
     // Set up ship options
@@ -35,7 +35,10 @@ function initializeApp() {
       // Initialize the game frame
       initializeGameFrame();
 
-      const gamePlay = new Gameplay(player.loadBoardState);
+      const gamePlay = new Gameplay(
+        player.loadBoardState(),
+        enemy.loadBoardState(),
+      );
 
       console.log(gamePlay);
     });

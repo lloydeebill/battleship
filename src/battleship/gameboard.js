@@ -132,8 +132,6 @@ class Gameboard {
         this.currPrevShipIndices.push(i);
       }
     }
-    console.log(this.currPrevShipIndices);
-    console.log(this.boardState);
   }
 
   previewBoardShip(centerIndex, chosenShip) {
@@ -318,6 +316,8 @@ class Gameboard {
     const ship = new CreateShip(chosenShip.name, chosenShip.size);
     ship.position = [...this.currPrevShipIndices];
 
+    const notifMsg = document.querySelector(".notification-msg");
+
     if (this.isPlacementValid(ship)) {
       this.currPrevShipIndices.forEach((index) => {
         this.boardState[index] = ship.name;
@@ -327,20 +327,21 @@ class Gameboard {
         );
 
         cellElement.classList.add(`${ship.name}`);
-
-        const notifMsg = document.querySelector(".notification-msg");
-        notifMsg.innerText = `${ship.name} deployed!`;
       });
 
       this.shipsList.push(ship);
+      if (this.user === "player") {
+        notifMsg.innerText = `${ship.name} deployed!`;
+      }
     } else {
-      const notifMsg = document.querySelector(".notification-msg");
-      notifMsg.innerText = `${ship.name} placement is invalid.`;
+      if (this.user === "player") {
+        notifMsg.innerText = `Invalid placement for ${ship.name}. Please try again.`;
+      }
     }
 
-    console.log(this.boardState);
-
-    this.askGameStart();
+    if (this.user === "player") {
+      this.askGameStart();
+    }
   }
 
   askGameStart() {
@@ -353,6 +354,20 @@ class Gameboard {
 
       this.saveBoardState();
     }
+  }
+
+  updateBoardUI() {
+    const cells = document.querySelectorAll(`.${this.user}-cell`);
+    cells.forEach((cell) => cell.classList.remove("ship-preview"));
+
+    this.shipsList.forEach((ship) => {
+      ship.position.forEach((index) => {
+        const cellElement = document.querySelector(
+          `.${this.user}-board .${this.user}-cell-${index}`,
+        );
+        cellElement.classList.add(ship.name);
+      });
+    });
   }
 
   saveBoardState() {
@@ -382,6 +397,7 @@ class Gameboard {
     return {
       boardState: this.boardState,
       shipsList: this.shipsList,
+      updateBoardUI: this.updateBoardUI(),
     };
   }
 }
