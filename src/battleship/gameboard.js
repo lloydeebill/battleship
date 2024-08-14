@@ -18,6 +18,10 @@ class Gameboard {
   initializeBoardPositioning() {
     this.renderBoardPlacement();
     this.initializeOrientationHandler();
+
+    if (this.user === "enemy") {
+      this.hideEnemyBoard();
+    }
   }
 
   renderBoardPlacement() {
@@ -132,6 +136,11 @@ class Gameboard {
         this.currPrevShipIndices.push(i);
       }
     }
+  }
+
+  hideEnemyBoard() {
+    const board = document.querySelector(`.${this.user}-board`);
+    board.style.display = "none";
   }
 
   previewBoardShip(centerIndex, chosenShip) {

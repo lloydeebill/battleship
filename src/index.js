@@ -7,10 +7,8 @@ import { initializeGameFrame } from "./appFrames/gameFrame";
 import { Gameplay } from "./battleship/gameplay";
 
 function initializeApp() {
-  // Initialize the landing frame
   initializeLandingFrame();
 
-  // Reference to the main container
   const main = document.querySelector("main");
 
   localStorage.removeItem("player-boardState");
@@ -21,21 +19,17 @@ function initializeApp() {
   playButton.addEventListener("click", () => {
     main.innerHTML = ""; // Clear the current view
 
-    // Set up the board frame
     setupBoardFrame();
 
     // Initialize player gameboard
     const player = new Gameboard("player");
     const enemy = new Gameboard("enemy");
 
-    // Set up ship options
-
     // Handle start game button click to transition to game frame
     const startGameButton = document.querySelector(".start-game-button");
     startGameButton.addEventListener("click", () => {
-      main.innerHTML = ""; // Clear the current view
+      main.innerHTML = "";
 
-      // Initialize the game frame
       initializeGameFrame();
 
       const gamePlay = new Gameplay(

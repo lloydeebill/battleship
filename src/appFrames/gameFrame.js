@@ -13,6 +13,7 @@ function initializeGameFrame() {
       </div>
       <div class="ship-options-container">
         <h1>Enemies Waters</h1>
+        <div class="enemy-board"></div>
       </div>
      `;
 
