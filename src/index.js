@@ -11,6 +11,8 @@ function initializeApp() {
 
   const main = document.querySelector("main");
 
+  clearBoardState();
+
   // Handle play button click to transition to setup board frame
   const playButton = document.querySelector(".play-button");
   playButton.addEventListener("click", () => {
@@ -31,10 +33,19 @@ function initializeApp() {
 
       const gamePlay = new Gameplay(
         player.loadBoardState(),
+        player.loadShipsList(),
         enemy.loadBoardState(),
+        enemy.loadShipsList(),
       );
     });
   });
+}
+
+function clearBoardState() {
+  localStorage.removeItem("player-boardState");
+  localStorage.removeItem("player-shipsList");
+  localStorage.removeItem("enemy-boardState");
+  localStorage.removeItem("enemy-shipsList");
 }
 
 // Start the application

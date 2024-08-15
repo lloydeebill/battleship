@@ -1,7 +1,14 @@
 class Gameplay {
-  constructor(playerBoardState, enemyBoardState) {
+  constructor(
+    playerBoardState,
+    playerShipsList,
+    enemyBoardState,
+    enemyShipsList,
+  ) {
     this.playerBoardState = playerBoardState;
+    this.playerShipsList = playerShipsList;
     this.enemyBoardState = enemyBoardState;
+    this.enemyShipsList = enemyShipsList;
     this.isPlayerTurn = true;
     this.initializeGamePlay();
   }
@@ -44,6 +51,7 @@ class Gameplay {
         cellElement.classList.add(`empty-cell-${index}`);
       } else {
         cellElement.classList.add(cell);
+        cellElement.classList.add("enemy-ship");
       }
       enemyBoard.appendChild(cellElement);
     });
@@ -84,7 +92,7 @@ class Gameplay {
 
     if (!successfulAttack) {
       // this.failedAttack();
-      cell.classList.add("damage");
+      cell.classList.add("missed");
     }
   }
 
@@ -133,9 +141,11 @@ class Gameplay {
     } else {
       setTimeout(() => {
         this.enemyMove();
-      }, 1000);
+      }, 500);
     }
   }
+
+  shipLives() {}
 }
 
 export { Gameplay };

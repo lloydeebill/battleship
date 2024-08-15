@@ -251,6 +251,11 @@ main {
   background-color: green;
 }
 
+.enemy-ship {
+  background-color: white;
+}
+
+
 .notif-btn-container {
   display: flex;
   align-items: center;
@@ -306,5 +311,9 @@ main {
 }
 
 .damage {
+  background-color: red;
+}
+
+.missed {
   background-color: black;
 }

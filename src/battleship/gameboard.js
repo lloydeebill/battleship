@@ -386,15 +386,15 @@ class Gameboard {
     this.saveBoardState();
   }
 
-  clearBoardState() {
-    localStorage.removeItem(`${this.user}-boardState`);
-    localStorage.removeItem(`${this.user}-shipsList`);
-  }
-
   saveBoardState() {
     localStorage.setItem(
       `${this.user}-boardState`,
       JSON.stringify(this.boardState),
+    );
+
+    localStorage.setItem(
+      `${this.user}-shipsList`,
+      JSON.stringify(this.shipsList),
     );
   }
 
@@ -407,6 +407,15 @@ class Gameboard {
     }
 
     return this.boardState;
+  }
+
+  loadShipsList() {
+    const savedShipsList = localStorage.getItem(`${this.user}-shipsList`);
+    if (savedShipsList !== null) {
+      this.shipsList = JSON.parse(savedShipsList);
+    }
+
+    return this.shipsList;
   }
 }
 
