@@ -341,9 +341,17 @@ class Gameboard {
 
         this.shipsList.push(ship);
 
-        notifMsg.innerText = `${ship.name} deployed!`;
+        notifMsg.innerText = `${ship.name} deployed Captain!`;
       } else {
-        notifMsg.innerText = `Invalid placement for ${ship.name}. Please try again.`;
+        const shipAlreadyPlaced = this.shipsList.some(
+          (existingShip) => existingShip.name === ship.name,
+        );
+
+        if (shipAlreadyPlaced) {
+          notifMsg.innerText = `Ship already in position Captain.`;
+        } else {
+          notifMsg.innerText = `Invalid position for ${ship.name} Captain.`;
+        }
       }
 
       this.askGameStart();
@@ -363,6 +371,7 @@ class Gameboard {
       }
 
       this.saveBoardState();
+      this.askGameStart();
     }
   }
 
