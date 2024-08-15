@@ -304,3 +304,7 @@ main {
   flex-direction: row;
   gap: 100px;
 }
+
+.damage {
+  background-color: black;
+}

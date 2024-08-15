@@ -371,7 +371,6 @@ class Gameboard {
       }
 
       this.saveBoardState();
-      this.askGameStart();
     }
   }
 
