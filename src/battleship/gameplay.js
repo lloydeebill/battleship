@@ -67,7 +67,7 @@ class Gameplay {
           "click",
           () => {
             if (this.isPlayerTurn) {
-              this.attackFire(cell);
+              this.attackFire("player", cell);
               this.endTurn();
             }
           },
@@ -77,14 +77,21 @@ class Gameplay {
     }
   }
 
-  attackFire(cell) {
+  attackFire(user, cell) {
     const shipList = ["Carrier", "Battleship", "Destroyer", "Submarine"];
+
+    //parse through each ship in shipsList
+    //check if one of the ships inside shiplsit is equal to the shiplist
 
     const successfulAttack = shipList.some((ship) => {
       if (cell.classList.contains(ship)) {
         cell.classList.remove(ship);
+
         // this.successfulAttack(ship);
         cell.classList.add("damage");
+
+        this.hitTracker(ship, user);
+
         return true;
       }
       return false;
@@ -112,7 +119,6 @@ class Gameplay {
   enemyMove() {
     const attackedCellIndex = this.enemyRandomAttack();
     this.enemyAttack(attackedCellIndex);
-    this.endTurn();
   }
 
   enemyRandomAttack() {
@@ -123,13 +129,26 @@ class Gameplay {
     return enemyAttackCell;
   }
 
-  enemyAttack(index) {
+  enemyAttack(attackedIndex) {
     console.log("Enemy's move started.");
     const cells = document.querySelectorAll(`.player-cell`);
-    if (index <= cells.length) {
-      const attackedCell = cells[index];
-      this.attackFire(attackedCell);
+    if (attackedIndex <= cells.length) {
+      const attackedCell = cells[attackedIndex];
+
+      if (
+        !attackedCell.classList.contains("damage") &&
+        !attackedCell.classList.contains("missed")
+      ) {
+        this.attackFire("enemy", attackedCell);
+        this.endTurn();
+      } else {
+        setTimeout(() => {
+          this.enemyMove();
+        }, 250);
+      }
     }
+
+    //check if the tile is already hit or damaged before firing another one
   }
 
   endTurn() {
@@ -145,7 +164,26 @@ class Gameplay {
     }
   }
 
-  shipLives() {}
+  hitTracker(targetedShip, user) {
+    if (user === "player") {
+      this.enemyShipsList.forEach((ship) => {
+        if (ship.name === targetedShip) {
+          ship.hits++;
+        }
+      });
+
+      console.log(this.enemyShipsList);
+    }
+
+    if (user === "enemy") {
+      this.playerShipsList.forEach((ship) => {
+        if (ship.name === targetedShip) {
+          ship.hits++;
+        }
+      });
+      console.log(this.playerShipsList);
+    }
+  }
 }
 
 export { Gameplay };

@@ -322,7 +322,7 @@ class Gameboard {
   placeChosenShipInBoard(chosenShip) {
     if (!chosenShip) return;
 
-    const ship = new CreateShip(chosenShip.name, chosenShip.size);
+    const ship = new CreateShip(chosenShip.name, chosenShip.size, this.user);
     ship.position = [...this.currPrevShipIndices];
 
     const notifMsg = document.querySelector(".notification-msg");

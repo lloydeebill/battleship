@@ -1,8 +1,9 @@
 class CreateShip {
-  constructor(name, size) {
+  constructor(name, size, owner) {
     this.name = name;
     this.size = size;
     this.hits = 0;
+    this.owner = owner;
     this.position = [];
   }
 

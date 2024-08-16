@@ -210,7 +210,7 @@ main {
 .carrier-preview {
   width: 250px;
   height: 50px;
-  background-color: red;
+  background-color: violet;
 }
 
 .battleship-preview {
@@ -236,7 +236,7 @@ main {
 }
 
 .Carrier {
-  background-color: red;
+  background-color: violet;
 }
 
 .Battleship {
