@@ -11,6 +11,8 @@ class Gameplay {
     this.enemyShipsList = enemyShipsList;
     this.isPlayerTurn = true;
     this.initializeGamePlay();
+
+    console.log(this.playerShipsList.map((ship) => ship.constructor.name)); // Should show "CreateShip"
   }
 
   initializeGamePlay() {
@@ -91,6 +93,7 @@ class Gameplay {
         cell.classList.add("damage");
 
         this.hitTracker(ship, user);
+        this.checkGameStatus();
 
         return true;
       }
@@ -112,7 +115,6 @@ class Gameplay {
   }
 
   playerMove() {
-    console.log("Player's move started.");
     this.listenToAttacks("enemy");
   }
 
@@ -130,7 +132,6 @@ class Gameplay {
   }
 
   enemyAttack(attackedIndex) {
-    console.log("Enemy's move started.");
     const cells = document.querySelectorAll(`.player-cell`);
     if (attackedIndex <= cells.length) {
       const attackedCell = cells[attackedIndex];
@@ -152,7 +153,6 @@ class Gameplay {
   }
 
   endTurn() {
-    console.log(this.isPlayerTurn);
     this.isPlayerTurn = !this.isPlayerTurn;
 
     if (this.isPlayerTurn) {
@@ -168,21 +168,23 @@ class Gameplay {
     if (user === "player") {
       this.enemyShipsList.forEach((ship) => {
         if (ship.name === targetedShip) {
-          ship.hits++;
+          ship.hit();
         }
       });
-
-      console.log(this.enemyShipsList);
     }
 
     if (user === "enemy") {
       this.playerShipsList.forEach((ship) => {
         if (ship.name === targetedShip) {
-          ship.hits++;
+          ship.hit();
         }
       });
-      console.log(this.playerShipsList);
     }
+  }
+
+  checkGameStatus() {
+    console.log(this.enemyShipsList);
+    console.log(this.playerShipsList);
   }
 }
 

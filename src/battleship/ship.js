@@ -1,20 +1,22 @@
 class CreateShip {
-  constructor(name, size, owner) {
+  constructor(name, size) {
     this.name = name;
     this.size = size;
     this.hits = 0;
-    this.owner = owner;
     this.position = [];
+    this.destroyed = false;
   }
 
   isSunk() {
     if (this.hits === this.size) {
-      return true;
+      console.log(`${this.name} is sunk`);
+      this.destroyed = true;
     }
   }
 
   hit() {
     this.hits++;
+    this.isSunk();
   }
 
   setPosition(indices) {

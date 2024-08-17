@@ -392,9 +392,15 @@ class Gameboard {
       JSON.stringify(this.boardState),
     );
 
+    const serializableShipsList = this.shipsList.map((ship) => ({
+      name: ship.name,
+      size: ship.size,
+      user: ship.user,
+    }));
+
     localStorage.setItem(
       `${this.user}-shipsList`,
-      JSON.stringify(this.shipsList),
+      JSON.stringify(serializableShipsList),
     );
   }
 
@@ -412,7 +418,10 @@ class Gameboard {
   loadShipsList() {
     const savedShipsList = localStorage.getItem(`${this.user}-shipsList`);
     if (savedShipsList !== null) {
-      this.shipsList = JSON.parse(savedShipsList);
+      this.shipsList = JSON.parse(savedShipsList).map(
+        (shipData) =>
+          new CreateShip(shipData.name, shipData.size, shipData.user),
+      );
     }
 
     return this.shipsList;
