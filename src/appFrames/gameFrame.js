@@ -11,13 +11,22 @@ function initializeGameFrame() {
         </div>
         <div class="player-board"></div>
       </div>
-      <div class="ship-options-container">
+      <div class="enemy-board-game-container">
         <h1>Enemies Waters</h1>
-        <div class="enemy-board"></div>
+        <div class="enemy-board""></div>
       </div>
      `;
 
   main.appendChild(div);
+
+  const gameOverModal = document.createElement("div");
+  gameOverModal.classList.add("game-over-modal");
+
+  gameOverModal.innerHTML = `<div class="game-over-modal-content">
+      <h1 class="game-over-title"></h1>
+  </div>`;
+
+  main.appendChild(gameOverModal);
 }
 
 export { initializeGameFrame };

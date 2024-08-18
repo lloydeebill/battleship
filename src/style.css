@@ -149,12 +149,26 @@ main {
   flex-wrap: wrap;
 }
 
-
-
 .player-board-container {
   displaY: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.enemy-board-game-container {
+  displaY: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ship-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px
+}
+
+.enemy-board-container {
+  display: none;
 }
 
 .rotate-btn {
@@ -179,19 +193,8 @@ main {
   align-items: center;
 }
 
-.ship-options-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px
-}
-
 .notification-msg {
   color: black;
-}
-
-
-.enemy-board-container {
-  display: none;
 }
 
 .enemy-cell,
@@ -271,6 +274,7 @@ main {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+
 .start-game-modal-content {
   display: flex;
   flex-direction: column;
@@ -316,4 +320,33 @@ main {
 
 .missed {
   background-color: black;
+}
+
+.game-over-modal {
+  display: none;
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.game-over-modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 10%;
+  width: 100%;
+  height: 80%;
+}
+
+.game-over-title {
+  font-size: 4rem;
+  font-family: 'Notable', 'Note Sans Symbols';
+  color: rgb(255, 105, 5);
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+  margin-bottom: 50px;
+  -webkit-text-stroke: 2px black;
 }

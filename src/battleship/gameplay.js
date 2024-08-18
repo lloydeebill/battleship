@@ -101,13 +101,12 @@ class Gameplay {
     });
 
     if (!successfulAttack) {
-      // this.failedAttack();
       cell.classList.add("missed");
     }
   }
 
-  successfulAttack(ship) {
-    console.log(`Successful attack captain, their ${ship} is damaged`);
+  successfulAttack() {
+    console.log(`Successful attack captain, one of their ship is damaged`);
   }
 
   failedAttack() {
@@ -148,13 +147,10 @@ class Gameplay {
         }, 250);
       }
     }
-
-    //check if the tile is already hit or damaged before firing another one
   }
 
   endTurn() {
     this.isPlayerTurn = !this.isPlayerTurn;
-
     if (this.isPlayerTurn) {
       this.playerMove();
     } else {
@@ -183,8 +179,27 @@ class Gameplay {
   }
 
   checkGameStatus() {
-    console.log(this.enemyShipsList);
-    console.log(this.playerShipsList);
+    const enemyDefeated = this.enemyShipsList.every(
+      (ship) => ship.destroyed === true,
+    );
+
+    const playerDefeated = this.playerShipsList.every(
+      (ship) => ship.destroyed === true,
+    );
+
+    this.gameOver(playerDefeated, enemyDefeated);
+  }
+
+  gameOver(playerDefeated, enemyDefeated) {
+    const gameOverTitle = document.querySelector(".game-over-title");
+    const gameOverModal = document.querySelector(".game-over-modal");
+
+    if (enemyDefeated) {
+      gameOverTitle.innerText = "You win";
+      gameOverModal.style.display = "block";
+    } else if (playerDefeated) {
+      gameOverTitle.innerText = "Defeated";
+    }
   }
 }
 
