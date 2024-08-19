@@ -1,5 +1,6 @@
 function initializeLandingFrame() {
   const main = document.querySelector("main");
+  main.innerHTML = "";
 
   const div = document.createElement("div");
 

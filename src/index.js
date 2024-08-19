@@ -7,11 +7,10 @@ import { initializeGameFrame } from "./appFrames/gameFrame";
 import { Gameplay } from "./battleship/gameplay";
 
 function initializeApp() {
-  initializeLandingFrame();
-
   const main = document.querySelector("main");
+  resetGameState();
 
-  clearBoardState();
+  initializeLandingFrame();
 
   // Handle play button click to transition to setup board frame
   const playButton = document.querySelector(".play-button");
@@ -37,6 +36,13 @@ function initializeApp() {
         enemy.loadBoardState(),
         enemy.loadShipsList(),
       );
+
+      const playAgainBtn = document.querySelector(".play-again-btn");
+
+      playAgainBtn.addEventListener("click", () => {
+        resetGameState();
+        initializeApp();
+      });
     });
   });
 }
@@ -46,6 +52,10 @@ function clearBoardState() {
   localStorage.removeItem("player-shipsList");
   localStorage.removeItem("enemy-boardState");
   localStorage.removeItem("enemy-shipsList");
+}
+
+function resetGameState() {
+  clearBoardState();
 }
 
 // Start the application

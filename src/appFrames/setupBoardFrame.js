@@ -3,6 +3,8 @@ import rotateBtn from "../img/rotate.svg";
 function setupBoardFrame() {
   const main = document.querySelector("main");
 
+  main.innerHTML = "";
+
   const setupBoardFrame = document.createElement("div");
   setupBoardFrame.classList.add("setupboard-frame");
   setupBoardFrame.innerHTML = `<div class="player-board-container">

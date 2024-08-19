@@ -1,3 +1,5 @@
+import { setupBoardFrame } from "./setupBoardFrame";
+
 function initializeGameFrame() {
   const main = document.querySelector("main");
 
@@ -24,9 +26,14 @@ function initializeGameFrame() {
 
   gameOverModal.innerHTML = `<div class="game-over-modal-content">
       <h1 class="game-over-title"></h1>
+      <button class="play-again-btn">Play Again</button>
   </div>`;
 
   main.appendChild(gameOverModal);
+
+  const playAgainBtn = document.querySelector(".play-again-btn");
+
+  playAgainBtn.addEventListener("click", () => {});
 }
 
 export { initializeGameFrame };
