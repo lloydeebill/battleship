@@ -30,10 +30,6 @@ function initializeGameFrame() {
   </div>`;
 
   main.appendChild(gameOverModal);
-
-  const playAgainBtn = document.querySelector(".play-again-btn");
-
-  playAgainBtn.addEventListener("click", () => {});
 }
 
 export { initializeGameFrame };

@@ -10,9 +10,14 @@ class Gameplay {
     this.enemyBoardState = enemyBoardState;
     this.enemyShipsList = enemyShipsList;
     this.isPlayerTurn = true;
-    this.initializeGamePlay();
+    this.gameOverFlag = false;
 
-    console.log(this.playerShipsList.map((ship) => ship.constructor.name)); // Should show "CreateShip"
+    this.availableEnemytoPlayerMoves = Array.from(
+      { length: playerBoardState.length },
+      (_, index) => index,
+    );
+
+    this.initializeGamePlay();
   }
 
   initializeGamePlay() {
@@ -69,8 +74,13 @@ class Gameplay {
           "click",
           () => {
             if (this.isPlayerTurn) {
-              this.attackFire("player", cell);
-              this.endTurn();
+              if (
+                !cell.classList.contains("damage") &&
+                !cell.classList.contains("missed")
+              ) {
+                this.attackFire("player", cell);
+                this.endTurn();
+              }
             }
           },
           { once: true },
@@ -123,9 +133,11 @@ class Gameplay {
   }
 
   enemyRandomAttack() {
-    const enemyAttackCell = Math.floor(
-      Math.random() * this.playerBoardState.length,
+    const randomIndex = Math.floor(
+      Math.random() * this.availableEnemytoPlayerMoves.length,
     );
+
+    const enemyAttackCell = this.availableEnemytoPlayerMoves[randomIndex];
 
     return enemyAttackCell;
   }
@@ -140,6 +152,10 @@ class Gameplay {
         !attackedCell.classList.contains("missed")
       ) {
         this.attackFire("enemy", attackedCell);
+        this.availableEnemytoPlayerMoves =
+          this.availableEnemytoPlayerMoves.filter(
+            (index) => index !== attackedIndex,
+          );
         this.endTurn();
       } else {
         setTimeout(() => {
@@ -150,6 +166,7 @@ class Gameplay {
   }
 
   endTurn() {
+    if (this.gameOverFlag) return;
     this.isPlayerTurn = !this.isPlayerTurn;
     if (this.isPlayerTurn) {
       this.playerMove();
@@ -196,9 +213,12 @@ class Gameplay {
 
     if (enemyDefeated) {
       gameOverTitle.innerText = "You win";
+      this.gameOverFlag = true;
       gameOverModal.style.display = "block";
     } else if (playerDefeated) {
+      this.gameOverFlag = true;
       gameOverTitle.innerText = "Defeated";
+      gameOverModal.style.display = "block";
     }
   }
 }
