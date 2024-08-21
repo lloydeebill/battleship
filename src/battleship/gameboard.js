@@ -33,7 +33,11 @@ class Gameboard {
       board.appendChild(cell);
     }
 
-    if (this.user === "player") {
+    if (
+      this.user === "player" ||
+      this.user === "player1" ||
+      this.user === "player2"
+    ) {
       const cells = document.querySelectorAll(`.${this.user}-cell`);
       cells.forEach((cell, centerIndex) => {
         cell.addEventListener("mouseover", () => {
@@ -241,7 +245,11 @@ class Gameboard {
   }
 
   initializeOrientationHandler() {
-    if (this.user === "player") {
+    if (
+      this.user === "player" ||
+      this.user === "player1" ||
+      this.user === "player2"
+    ) {
       const changeOrientBtn = document.querySelector(".rotate-btn");
 
       changeOrientBtn.addEventListener("click", () => {
@@ -327,7 +335,11 @@ class Gameboard {
 
     const notifMsg = document.querySelector(".notification-msg");
 
-    if (this.user === "player") {
+    if (
+      this.user === "player" ||
+      this.user === "player1" ||
+      this.user === "player2"
+    ) {
       if (this.isPlacementValid(ship)) {
         this.currPrevShipIndices.forEach((index) => {
           this.boardState[index] = ship.name;
@@ -354,7 +366,9 @@ class Gameboard {
         }
       }
 
-      this.askGameStart();
+      if (this.user === "player") {
+        this.askGameStart();
+      }
     } else if (this.user === "enemy") {
       if (this.isPlacementValid(ship)) {
         this.currPrevShipIndices.forEach((index) => {

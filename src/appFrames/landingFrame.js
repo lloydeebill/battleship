@@ -7,7 +7,11 @@ function initializeLandingFrame() {
   div.classList.add("landing-frame");
 
   div.innerHTML = `<h1>Battle Ship⛴</h2>
-  <button class="play-button">Play</button>`;
+  <div>
+    <button class="play-button">Single Player</button>
+    <button class="multiplay-button">Multi-Player</button>
+  </div>
+`;
 
   main.appendChild(div);
 }

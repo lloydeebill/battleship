@@ -113,11 +113,12 @@ main {
   }
 }
 
-.play-button {
+.play-button,
+.multiplay-button {
   width: 250px;
-  height: 70px;
+  height: 100px;
   padding-bottom: 10px;
-  font-size: 2.0rem;
+  font-size: 1.5rem;
   font-family: 'Notable', 'Courier New', Courier, monospace;
   background-color: rgba(0, 0, 0, 0.3);
   border-bottom-right-radius: 40%;
@@ -128,7 +129,8 @@ main {
 }
 
 .play-button:hover,
-.start-game-button:hover {
+.start-game-button:hover,
+.multiplay-button:hover {
   background-color: rgb(255, 105, 5);
   color: black;
   cursor: pointer;
@@ -141,12 +143,20 @@ main {
 }
 
 .player-board,
-.enemy-board {
+.enemy-board,
+.player1-board,
+.player2-board {
   width: 500px;
   height: 500px;
   background-color: white;
   display: flex;
   flex-wrap: wrap;
+}
+
+.player1-board-container,
+.player2-board-container {
+  display: flex;
+
 }
 
 .player-board-container {
@@ -198,7 +208,9 @@ main {
 }
 
 .enemy-cell,
-.player-cell {
+.player-cell,
+.player1-cell,
+.player2-cell {
   width: 50px;
   height: 50px;
   border: 1px solid black;
@@ -271,7 +283,7 @@ main {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: black;
 }
 
 
