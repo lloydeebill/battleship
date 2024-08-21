@@ -77,6 +77,7 @@ function initializeApp() {
     const player2ReadyBtn = document.querySelector(".player2-ready-button");
     player2ReadyBtn.addEventListener("click", () => {
       player2Ready = true;
+      player2.saveBoardState();
 
       if (player1Ready) {
         const startGameModal = document.querySelector(".start-game-modal");

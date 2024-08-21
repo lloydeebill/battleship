@@ -13,6 +13,7 @@ class Gameboard {
     this.initializeBoardPositioning();
     this.loadBoardState();
     this.shipOptions();
+    console.log(`this.user: ${this.user}`); // Ensure this is "player"
   }
 
   initializeBoardPositioning() {
@@ -262,7 +263,14 @@ class Gameboard {
   }
 
   shipOptions() {
-    const shipOptionsContainer = document.querySelector(".ship-options");
+    if (this.user === "enemy") {
+      return; // Enemy doesn't need ship options, skip this method.
+    }
+
+    const shipOptionsContainer = document.querySelector(
+      `.${this.user}-ship-options`,
+    );
+
     const shipChosenMsg = document.querySelector(".ship-chosen-msg");
 
     const shipOptions = shipOptionsContainer.children;

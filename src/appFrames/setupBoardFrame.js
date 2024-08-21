@@ -21,7 +21,7 @@ function setupBoardFrame() {
         <div>
           <h3 class="ship-chosen-msg"></h3>
         </div>
-        <div class="ship-options">
+        <div class="player-ship-options">
           <div
             class="carrier-preview"
             data-name="Carrier"
