@@ -15,7 +15,7 @@ function initializeGameFrame() {
       </div>
       <div class="enemy-board-game-container">
         <h1>Enemies Waters</h1>
-        <div class="enemy-board""></div>
+        <div class="enemy-board"></div>
       </div>
      `;
 

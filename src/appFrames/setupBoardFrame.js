@@ -10,8 +10,8 @@ function setupBoardFrame() {
   setupBoardFrame.innerHTML = `<div class="player-board-container">
         <h1>Player Board</h1>
         <div class="notif-btn-container">
-          <h3 class="notification-msg">Captain our ships are ready to be setup!</h3> 
-          <img src="${rotateBtn}" alt="Rotate Button" class="rotate-btn">
+          <h3 class="player-notification-msg">Captain our ships are ready to be setup!</h3> 
+          <img src="${rotateBtn}" alt="Rotate Button" class="player-rotate-btn">
         </div>
         <div class="player-board"></div>
         <div class="enemy-board"></div>
@@ -19,7 +19,7 @@ function setupBoardFrame() {
       <div class="ship-options-container">
         <h1>Ship Options</h1>
         <div>
-          <h3 class="ship-chosen-msg"></h3>
+          <h3 class="player-ship-chosen-msg"></h3>
         </div>
         <div class="player-ship-options">
           <div

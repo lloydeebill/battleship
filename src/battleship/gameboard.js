@@ -251,7 +251,9 @@ class Gameboard {
       this.user === "player1" ||
       this.user === "player2"
     ) {
-      const changeOrientBtn = document.querySelector(".rotate-btn");
+      const changeOrientBtn = document.querySelector(
+        `.${this.user}-rotate-btn`,
+      );
 
       changeOrientBtn.addEventListener("click", () => {
         if (this.shipChosen) {
@@ -271,7 +273,9 @@ class Gameboard {
       `.${this.user}-ship-options`,
     );
 
-    const shipChosenMsg = document.querySelector(".ship-chosen-msg");
+    const shipChosenMsg = document.querySelector(
+      `.${this.user}-ship-chosen-msg`,
+    );
 
     const shipOptions = shipOptionsContainer.children;
 
@@ -341,7 +345,7 @@ class Gameboard {
     const ship = new CreateShip(chosenShip.name, chosenShip.size, this.user);
     ship.position = [...this.currPrevShipIndices];
 
-    const notifMsg = document.querySelector(".notification-msg");
+    const notifMsg = document.querySelector(`.${this.user}-notification-msg`);
 
     if (
       this.user === "player" ||
@@ -398,7 +402,7 @@ class Gameboard {
 
   askGameStart() {
     if (this.shipsList.length === 4) {
-      const notifMsg = document.querySelector(".notification-msg");
+      const notifMsg = document.querySelector(`.${this.user}-notification-msg`);
       notifMsg.innerText = `Full Steam Ahead!`;
 
       const startGameModal = document.querySelector(".start-game-modal");

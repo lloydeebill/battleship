@@ -11,15 +11,15 @@ function multiplaySetupFrame() {
       <div>
         <h1>Player 1 Board</h1>
         <div class="notif-btn-container">
-          <h3 class="notification-msg">Captain our ships are ready to be setup!</h3> 
-          <img src="${rotateBtn}" alt="Rotate Button" class="rotate-btn">
+          <h3 class="player1-notification-msg">Captain our ships are ready to be setup!</h3> 
+          <img src="${rotateBtn}" alt="Rotate Button" class="player1-rotate-btn">
         </div>
         <div class="player1-board"></div>
       </div>
       <div class="ship-options-container">
         <h1>Ship Options</h1>
         <div>
-          <h3 class="ship-chosen-msg"></h3>
+          <h3 class="player1-ship-chosen-msg"></h3>
         </div>
         <div class="player1-ship-options">
           <div
@@ -54,15 +54,15 @@ function multiplaySetupFrame() {
       <div>
         <h1>Player 2 Board</h1>
         <div class="notif-btn-container">
-          <h3 class="notification-msg">Captain our ships are ready to be setup!</h3> 
-          <img src="${rotateBtn}" alt="Rotate Button" class="rotate-btn">
+          <h3 class="player2-notification-msg">Captain our ships are ready to be setup!</h3> 
+          <img src="${rotateBtn}" alt="Rotate Button" class="player2-rotate-btn">
         </div>
         <div class="player2-board"></div>
       </div>
       <div class="ship-options-container">
         <h1>Ship Options</h1>
         <div>
-          <h3 class="ship-chosen-msg"></h3>
+          <h3 class="player2-ship-chosen-msg"></h3>
         </div>
         <div class="player2-ship-options">
           <div

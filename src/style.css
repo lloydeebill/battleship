@@ -145,7 +145,9 @@ main {
 .player-board,
 .enemy-board,
 .player1-board,
-.player2-board {
+.player2-board,
+.player1-board-attack,
+.player2-board-attack {
   width: 500px;
   height: 500px;
   background-color: white;
@@ -181,12 +183,16 @@ main {
   display: none;
 }
 
-.rotate-btn {
+.rotate-btn,
+.player1-rotate-btn,
+.player2-rotate-btn {
   width: 40px;
   height: 40px;
 }
 
-.rotate-btn:hover {
+.rotate-btn:hover,
+.player1-rotate-btn:hover,
+.player2-rotate-btn:hover {
   position: relative;
   cursor: pointer;
   bottom: 5px;
@@ -205,18 +211,29 @@ main {
   align-items: center;
 }
 
-.notification-msg {
+.notification-msg,
+.player1-notification-msg,
+.player2-notification-msg {
   color: black;
 }
 
 .enemy-cell,
 .player-cell,
 .player1-cell,
-.player2-cell {
+.player2-cell,
+.player1-cell-attack,
+.player2-cell-attack {
   width: 50px;
   height: 50px;
   border: 1px solid black;
   box-sizing: border-box;
+}
+
+.player1-view,
+.player2-view {
+  display: flex;
+  flex-direction: row;
+
 }
 
 
@@ -363,4 +380,13 @@ main {
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
   margin-bottom: 50px;
   -webkit-text-stroke: 2px black;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+
 }

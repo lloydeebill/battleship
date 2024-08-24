@@ -6,6 +6,8 @@ import { Gameboard } from "./battleship/gameboard";
 import { initializeGameFrame } from "./appFrames/gameFrame";
 import { Gameplay } from "./battleship/gameplay";
 import { multiplaySetupFrame } from "./appFrames/multiplaySetupFrame";
+import { initializeMultiplayerGameFrame } from "./appFrames/multiplayerGameFrame";
+import { MultiGameplay } from "./battleship/multigameplay";
 
 function initializeApp() {
   const main = document.querySelector("main");
@@ -89,9 +91,9 @@ function initializeApp() {
     startGameButton.addEventListener("click", () => {
       main.innerHTML = "";
 
-      initializeGameFrame();
+      initializeMultiplayerGameFrame();
 
-      const gamePlay = new Gameplay(
+      const multigameplay = new MultiGameplay(
         player1.loadBoardState(),
         player1.loadShipsList(),
         player2.loadBoardState(),
@@ -108,22 +110,19 @@ function initializeApp() {
   });
 }
 
-function clearBoardState(player1, player2) {
-  if (player1 && player2) {
-    localStorage.removeItem(`${player1}-boardState`);
-    localStorage.removeItem(`${player1}-shipsList`);
-    localStorage.removeItem(`${player2}-boardState`);
-    localStorage.removeItem(`${player2}-shipsList`);
-  } else {
-    localStorage.removeItem("player-boardState");
-    localStorage.removeItem("player-shipsaList");
-    localStorage.removeItem("enemy-boardState");
-    localStorage.removeItem("enemy-shipsList");
-  }
+function clearBoardState() {
+  localStorage.removeItem(`player1-boardState`);
+  localStorage.removeItem(`player1-shipsList`);
+  localStorage.removeItem(`player2-boardState`);
+  localStorage.removeItem(`player2-shipsList`);
+  localStorage.removeItem("player-boardState");
+  localStorage.removeItem("player-shipsaList");
+  localStorage.removeItem("enemy-boardState");
+  localStorage.removeItem("enemy-shipsList");
 }
 
-function resetGameState(player1, player2) {
-  clearBoardState(player1, player2);
+function resetGameState() {
+  clearBoardState();
 }
 
 // Start the application
